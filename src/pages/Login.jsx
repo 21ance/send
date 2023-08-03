@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import AccountElement from "../components/account/AccountElement";
+import { FormInput, FormSubmit } from "../components/account/FormElements";
 
 const Login = () => {
 	const [loginDetails, setLoginDetails] = useState({
@@ -47,13 +49,11 @@ const Login = () => {
 	}
 
 	return (
-		<main className="px-8 font-urbanist flex flex-col justify-center h-screen">
-			<h1 className="text-3xl font-bold min-w-[auto] max-w-[16ch] py-8">
-				Welcome back! Glad to see you again!
-			</h1>
+		<AccountElement heading="Welcome back! Glad to see you again!">
 			<form action="" className="flex flex-col gap-4">
 				<FormInput
 					type="text"
+					label="Username:"
 					placeholder="Enter your username"
 					value={loginDetails.username}
 					onChange={(e) => {
@@ -65,6 +65,7 @@ const Login = () => {
 				/>
 				<FormInput
 					type="password"
+					label="Password:"
 					placeholder="Enter your password"
 					value={loginDetails.password}
 					onChange={(e) => {
@@ -80,13 +81,7 @@ const Login = () => {
 				>
 					Forgot Password?
 				</a>
-				<button
-					type="submit"
-					className="bg-[#1E232C] rounded-lg h-[56px] text-white mt-6"
-					onClick={(e) => validateLogin(e)}
-				>
-					Login
-				</button>
+				<FormSubmit onClick={(e) => validateLogin(e)} text="Login" />
 				{loginError && (
 					<span className="text-red-500 text-sm mt-[-0.5rem]">
 						Unable to login, please enter a valid username and password
@@ -99,21 +94,7 @@ const Login = () => {
 					</a>
 				</span>
 			</form>
-		</main>
-	);
-};
-
-const FormInput = (props) => {
-	const { type, placeholder, value, onChange } = props;
-
-	return (
-		<input
-			type={type}
-			placeholder={placeholder}
-			className="bg-[#F7F8F9] rounded-lg border-[1px] border-[#DADADA] p-2 placeholder:text-[#8391A1] focus:outline-[#1E232C] font-sans"
-			value={value}
-			onChange={onChange}
-		/>
+		</AccountElement>
 	);
 };
 
