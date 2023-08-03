@@ -53,7 +53,7 @@ const Login = () => {
 			<form action="" className="flex flex-col gap-4">
 				<FormInput
 					type="text"
-					label="Username:"
+					label="Username"
 					placeholder="Enter your username"
 					value={loginDetails.username}
 					onChange={(e) => {
@@ -65,7 +65,7 @@ const Login = () => {
 				/>
 				<FormInput
 					type="password"
-					label="Password:"
+					label="Password"
 					placeholder="Enter your password"
 					value={loginDetails.password}
 					onChange={(e) => {

@@ -101,8 +101,8 @@ const Register = () => {
 			<form action="" className="flex flex-col gap-4">
 				<FormInput
 					type="text"
-					label="Enter your username"
-					placeholder="Username"
+					label="Username"
+					placeholder="Enter your username"
 					value={registerDetails.username}
 					onChange={(e) => {
 						setRegisterDetails((prev) => ({
