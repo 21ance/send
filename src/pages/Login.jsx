@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AccountElement from "../components/account/AccountElement";
 import { FormInput, FormSubmit } from "../components/account/FormElements";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 	const [loginDetails, setLoginDetails] = useState({
@@ -8,6 +10,13 @@ const Login = () => {
 		password: "",
 	});
 	const [loginError, setLoginError] = useState(false);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (JSON.parse(localStorage.getItem("login"))) {
+			navigate("/");
+		}
+	});
 
 	useEffect(() => {
 		setLoginError(false);
@@ -37,6 +46,7 @@ const Login = () => {
 			setLoginError(true);
 		} else {
 			localStorage.setItem("login", JSON.stringify(user));
+			navigate("/");
 		}
 	}
 
@@ -89,9 +99,9 @@ const Login = () => {
 				)}
 				<span className="text-center text-[#1E232C]">
 					Don't have an account?{" "}
-					<a href="" className="text-[#35C2C1]">
+					<Link to={"/register"} className="text-[#35C2C1]">
 						Register Now
-					</a>
+					</Link>
 				</span>
 			</form>
 		</AccountElement>

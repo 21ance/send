@@ -5,6 +5,7 @@ import {
 	FormSubmit,
 	FormError,
 } from "../components/account/FormElements";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
 	const [registerDetails, setRegisterDetails] = useState({
@@ -14,6 +15,13 @@ const Register = () => {
 		confirmPassword: "",
 	});
 	const [registerError, setRegisterError] = useState(false);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (JSON.parse(localStorage.getItem("login"))) {
+			navigate("/");
+		}
+	});
 
 	useEffect(() => {
 		setRegisterError(false);
@@ -93,6 +101,7 @@ const Register = () => {
 			}));
 		} else {
 			localStorage.setItem("login", JSON.stringify(user));
+			navigate("/");
 		}
 	}
 

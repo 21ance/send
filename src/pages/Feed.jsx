@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
 	const { loading, error, data } = useFetch(
 		"http://localhost:1337/api/posts?sort[0]=id:desc&populate=deep,3"
 	);
+	const navigate = useNavigate();
+
+	// to remove, feed should be viewable even for logged out user
+	useEffect(() => {
+		if (JSON.parse(!localStorage.getItem("login"))) {
+			navigate("/login");
+		}
+	});
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error...</p>;
