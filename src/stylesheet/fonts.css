@@ -2,3 +2,8 @@
 	font-family: UrbanistRegular;
 	src: url(../fonts/Urbanist-Regular.ttf);
 }
+
+@font-face {
+	font-family: RobotoRegular;
+	src: url(../fonts/Roboto-Regular.ttf);
+}

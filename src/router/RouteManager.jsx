@@ -1,15 +1,41 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
+import Header from "../components/header/Header";
 import Feed from "../pages/Feed";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import { useState } from "react";
 
 const RouteManager = () => {
+	const [loginDetails, setLoginDetails] = useState(
+		JSON.parse(localStorage.getItem("login"))
+	);
+
 	return (
 		<HashRouter>
+			<Header
+				loginDetails={loginDetails}
+				setLoginDetails={setLoginDetails}
+			/>
 			<Routes>
 				<Route path="/" element={<Feed />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
+				<Route
+					path="/login"
+					element={
+						<Login
+							loginDetails={loginDetails}
+							setLoginDetails={setLoginDetails}
+						/>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<Register
+							loginDetails={loginDetails}
+							setLoginDetails={setLoginDetails}
+						/>
+					}
+				/>
 			</Routes>
 		</HashRouter>
 	);

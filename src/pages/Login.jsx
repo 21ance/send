@@ -4,8 +4,9 @@ import { FormInput, FormSubmit } from "../components/account/FormElements";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-	const [loginDetails, setLoginDetails] = useState({
+const Login = (props) => {
+	const { loginDetails, setLoginDetails } = props;
+	const [loginForm, setLoginForm] = useState({
 		username: "",
 		password: "",
 	});
@@ -13,22 +14,22 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (JSON.parse(localStorage.getItem("login"))) {
+		if (loginDetails !== null) {
 			navigate("/");
 		}
-	});
+	}, [loginDetails]);
 
 	useEffect(() => {
 		setLoginError(false);
-	}, [loginDetails]);
+	}, [loginForm]);
 
 	const fetchUser = async () => {
 		try {
 			const res = await fetch("http://localhost:1337/api/auth/local", {
 				method: "POST",
 				body: JSON.stringify({
-					identifier: loginDetails.username,
-					password: loginDetails.password,
+					identifier: loginForm.username,
+					password: loginForm.password,
 				}),
 				headers: {
 					"Content-type": "application/json",
@@ -46,13 +47,14 @@ const Login = () => {
 			setLoginError(true);
 		} else {
 			localStorage.setItem("login", JSON.stringify(user));
+			setLoginDetails(user);
 			navigate("/");
 		}
 	}
 
 	function validateLogin(e) {
 		e.preventDefault();
-		if (loginDetails.username === "" || loginDetails.password === "") {
+		if (loginForm.username === "" || loginForm.password === "") {
 			return setLoginError(true);
 		}
 		fetchUser();
@@ -65,9 +67,9 @@ const Login = () => {
 					type="text"
 					label="Username"
 					placeholder="Enter your username"
-					value={loginDetails.username}
+					value={loginForm.username}
 					onChange={(e) => {
-						setLoginDetails((prev) => ({
+						setLoginForm((prev) => ({
 							...prev,
 							username: e.target.value,
 						}));
@@ -77,9 +79,9 @@ const Login = () => {
 					type="password"
 					label="Password"
 					placeholder="Enter your password"
-					value={loginDetails.password}
+					value={loginForm.password}
 					onChange={(e) => {
-						setLoginDetails((prev) => ({
+						setLoginForm((prev) => ({
 							...prev,
 							password: e.target.value,
 						}));

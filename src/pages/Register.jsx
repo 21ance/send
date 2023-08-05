@@ -7,7 +7,8 @@ import {
 } from "../components/account/FormElements";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = (props) => {
+	const { loginDetails, setLoginDetails } = props;
 	const [registerDetails, setRegisterDetails] = useState({
 		username: "",
 		email: "",
@@ -18,10 +19,10 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (JSON.parse(localStorage.getItem("login"))) {
+		if (loginDetails !== null) {
 			navigate("/");
 		}
-	});
+	}, [loginDetails]);
 
 	useEffect(() => {
 		setRegisterError(false);
@@ -92,7 +93,6 @@ const Register = () => {
 	};
 
 	function validateUser(user) {
-		console.log(user);
 		if (user.data === null) {
 			setRegisterError((prev) => ({
 				...prev,
@@ -101,6 +101,7 @@ const Register = () => {
 			}));
 		} else {
 			localStorage.setItem("login", JSON.stringify(user));
+			setLoginDetails(user);
 			navigate("/");
 		}
 	}

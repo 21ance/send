@@ -5,6 +5,7 @@ export default {
 		extend: {
 			fontFamily: {
 				urbanist: ["UrbanistRegular", "sans-serif"],
+				roboto: ["RobotoRegular", "sans-serif"],
 			},
 		},
 	},
