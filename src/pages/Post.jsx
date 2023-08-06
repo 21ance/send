@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
-import Vote from "../components/common/Vote";
+import PostFooter from "../components/common/PostFooter";
 
 const Post = () => {
 	const { postID } = useParams();
@@ -13,7 +13,6 @@ const Post = () => {
 
 	useEffect(() => {
 		if (!data) return;
-		console.log(data);
 		setPostContent({
 			post: data.data.attributes,
 			OP: data.data.attributes.users_permissions_user.data.attributes,
@@ -26,23 +25,40 @@ const Post = () => {
 	if (error) return <p>Error...</p>;
 
 	return (
-		<main className="px-4 py-2">
-			{console.log(postContent)}
-			<TimePassed
-				text={`Posted by ${postContent.OP.username}`}
-				currentTime={postContent.post.publishedAt}
-			/>
-			<h1 className="font-bold text-lg">{postContent.post.title}</h1>
-			<p>{postContent.post.content}</p>
-			<Vote />
-			<div>
-				{postContent.comments.length === 0 ? (
-					<h2>no comments yet</h2>
-				) : (
-					<span>{postContent.comments.length} comments</span>
-				)}
-			</div>
-		</main>
+		<>
+			<main className="px-4 py-2 bg-white my-2">
+				<TimePassed
+					text={`Posted by ${postContent.OP.username}`}
+					currentTime={postContent.post.publishedAt}
+				/>
+				<h1 className="font-bold text-lg">{postContent.post.title}</h1>
+				<p>{postContent.post.content}</p>
+				<PostFooter
+					commentLength={postContent.comments.length}
+					className="mt-4"
+				/>
+			</main>
+			{postContent.comments.length === 0 ? (
+				<h2>no comments yet</h2>
+			) : (
+				postContent.comments
+					.map((comment) => {
+						console.log(comment);
+						return (
+							<div key={comment.id} className="px-4 py-2 my-1 bg-white">
+								<span className="flex items-center gap-2">
+									{`${comment.attributes.user.data.attributes.username} `}
+									<TimePassed
+										currentTime={comment.attributes.publishedAt}
+									/>
+								</span>
+								<p>{comment.attributes.content}</p>
+							</div>
+						);
+					})
+					.reverse()
+			)}
+		</>
 	);
 };
 

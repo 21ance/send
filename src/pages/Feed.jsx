@@ -1,6 +1,6 @@
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import Vote from "../components/common/Vote";
+import PostFooter from "../components/common/PostFooter";
 import TimePassed from "../components/common/TimePassed";
 
 const Feed = () => {
@@ -18,12 +18,12 @@ const Feed = () => {
 	if (error) return <p>Error...</p>;
 
 	return (
-		<main className=" bg-gray-100 min-h-screen font-roboto">
+		<main>
 			{data.data.map((post) => {
 				return (
 					<article
 						key={post.id}
-						className="mb-2 bg-white px-7 py-6 flex flex-col gap-4"
+						className="my-2 bg-white px-7 py-6 flex flex-col gap-4"
 						onClick={(e) => {
 							openPost(post.id);
 						}}
@@ -47,20 +47,9 @@ const Feed = () => {
 						<p className="truncate max-w-[65ch] mt-[-1rem] text-sm">
 							{post.attributes.content}
 						</p>
-						<footer
-							className="flex items-center relative"
-							onClick={(e) => e.stopPropagation()}
-						>
-							<Vote />
-							<div className="flex items-center gap-1 absolute right-0 cursor-pointer">
-								<img src="./svg/comment.svg" alt="downvote" width="16px" />
-								<span>
-									{post.attributes.comments.data.length === 1
-										? post.attributes.comments.data.length + " comment"
-										: post.attributes.comments.data.length + " comments"}
-								</span>
-							</div>
-						</footer>
+						<PostFooter
+							commentLength={post.attributes.comments.data.length}
+						/>
 					</article>
 				);
 			})}

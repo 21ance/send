@@ -9,7 +9,7 @@ const Header = (props) => {
 	}
 
 	return (
-		<header className="flex justify-between items-center px-4 py-2">
+		<header className="flex justify-between items-center px-4 py-2 bg-white">
 			<h1>Logo text</h1>
 			<div className="flex items-center">
 				{loginDetails !== null ? (

@@ -6,6 +6,7 @@ function calculateTimePassed(pastDate) {
 		"months",
 		"days",
 		"hours",
+		"minutes",
 	]);
 
 	const diff = compare.values;
@@ -32,6 +33,12 @@ function calculateTimePassed(pastDate) {
 		return `${parseInt(diff.hours)} hour ago`;
 	} else if (diff.hours > 1) {
 		return `${parseInt(diff.hours)} hours ago`;
+	}
+
+	if (diff.minutes <= 1) {
+		return `${parseInt(diff.minutes)} minute ago`;
+	} else if (diff.minutes > 1) {
+		return `${parseInt(diff.minutes)} minutes ago`;
 	}
 }
 
