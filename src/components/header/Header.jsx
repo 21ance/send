@@ -9,8 +9,8 @@ const Header = (props) => {
 	}
 
 	return (
-		<header className="flex justify-between items-center px-4 py-2 bg-white">
-			<h1>Logo text</h1>
+		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
+			<h1>Logo/text</h1>
 			<div className="flex items-center">
 				{loginDetails !== null ? (
 					<>
@@ -22,14 +22,14 @@ const Header = (props) => {
 						<span>{loginDetails.user.username}</span>
 						<Link
 							to={"/"}
-							className="text-[#35C2C1]"
+							className="text-[#787C7E]"
 							onClick={() => logOut()}
 						>
 							Logout
 						</Link>
 					</>
 				) : (
-					<Link to={"/login"} className="text-[#35C2C1]">
+					<Link to={"/login"} className="text-[#787C7E]">
 						Login
 					</Link>
 				)}

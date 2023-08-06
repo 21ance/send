@@ -26,10 +26,11 @@ const Post = () => {
 
 	return (
 		<>
-			<main className="px-4 py-2 bg-white my-2">
+			<main className="px-4 py-2 bg-white my-2 md:w-[700px]">
 				<TimePassed
 					text={`Posted by ${postContent.OP.username}`}
 					currentTime={postContent.post.publishedAt}
+					className="text-[#787C7E]"
 				/>
 				<h1 className="font-bold text-lg">{postContent.post.title}</h1>
 				<p>{postContent.post.content}</p>
@@ -45,7 +46,10 @@ const Post = () => {
 					.map((comment) => {
 						console.log(comment);
 						return (
-							<div key={comment.id} className="px-4 py-2 my-1 bg-white">
+							<div
+								key={comment.id}
+								className="px-4 py-2 my-1 bg-white md:w-[700px]"
+							>
 								<span className="flex items-center gap-2">
 									{`${comment.attributes.user.data.attributes.username} `}
 									<TimePassed

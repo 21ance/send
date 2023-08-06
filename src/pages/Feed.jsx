@@ -18,12 +18,12 @@ const Feed = () => {
 	if (error) return <p>Error...</p>;
 
 	return (
-		<main>
+		<main className="md:w-[700px]">
 			{data.data.map((post) => {
 				return (
 					<article
 						key={post.id}
-						className="my-2 bg-white px-7 py-6 flex flex-col gap-4"
+						className="my-2 bg-white px-7 py-6 flex flex-col gap-4 cursor-pointer"
 						onClick={(e) => {
 							openPost(post.id);
 						}}
