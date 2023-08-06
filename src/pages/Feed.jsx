@@ -1,47 +1,19 @@
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { DateTime } from "luxon";
+import Vote from "../components/common/Vote";
+import TimePassed from "../components/common/TimePassed";
 
 const Feed = () => {
 	const { loading, error, data } = useFetch(
 		"http://localhost:1337/api/posts?sort[0]=id:desc&populate=deep,3"
 	);
+	const navigate = useNavigate();
 
-	function calculateTimePassed(currentDate, pastDate) {
-		const compare = currentDate.diff(pastDate, [
-			"years",
-			"months",
-			"days",
-			"hours",
-		]);
-
-		const diff = compare.values;
-
-		if (diff.years === 1) {
-			return `${diff.years} year ago`;
-		} else if (diff.years > 1) {
-			return `${diff.years} years ago`;
-		}
-
-		if (diff.months === 1) {
-			return `${diff.months} month ago`;
-		} else if (diff.months > 1) {
-			return `${diff.months} months ago`;
-		}
-
-		if (diff.days === 1) {
-			return `${diff.days} day ago`;
-		} else if (diff.days > 1) {
-			return `${diff.days} days ago`;
-		}
-
-		if (diff.hours === 1) {
-			return `${parseInt(diff.hours)} hour ago`;
-		} else if (diff.hours > 1) {
-			return `${parseInt(diff.hours)} hours ago`;
-		}
+	function openPost(postID) {
+		navigate(`/posts/${postID}`);
 	}
 
+	// to add loading component
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error...</p>;
 
@@ -51,7 +23,10 @@ const Feed = () => {
 				return (
 					<article
 						key={post.id}
-						className="mb-4 bg-white px-7 py-6 flex flex-col gap-4"
+						className="mb-2 bg-white px-7 py-6 flex flex-col gap-4"
+						onClick={(e) => {
+							openPost(post.id);
+						}}
 					>
 						<header className="grid grid-cols-[auto,1fr] gap-x-2">
 							<img
@@ -60,40 +35,30 @@ const Feed = () => {
 								width="40px"
 								className="row-[1/3] self-center"
 							/>
-							<span className="col-[2/3] font-medium">
+							<span className="col-[2/3] font-medium text-sm">
 								{
 									post.attributes.users_permissions_user.data.attributes
 										.username
 								}
 							</span>
-							<small className="col-[2/3]">
-								{calculateTimePassed(
-									DateTime.fromISO(new Date().toJSON()),
-									DateTime.fromISO(post.attributes.publishedAt)
-								)}
-							</small>
+							<TimePassed currentTime={post.attributes.publishedAt} />
 						</header>
-						<h2 className="font-bold block text-lg">
-							{post.attributes.title}
-						</h2>
-						<p className="truncate max-w-[65ch] mt-[-1rem]">
+						<h2 className="font-bold block">{post.attributes.title}</h2>
+						<p className="truncate max-w-[65ch] mt-[-1rem] text-sm">
 							{post.attributes.content}
 						</p>
-						<footer className="flex items-center text-xl font-thin gap-2 relative">
-							<button>
-								<img src="./svg/upvote.svg" alt="upvote" />
-							</button>
-							<small>Vote</small>
-							<button>
-								<img src="./svg/downvote.svg" alt="downvote" />
-							</button>
+						<footer
+							className="flex items-center relative"
+							onClick={(e) => e.stopPropagation()}
+						>
+							<Vote />
 							<div className="flex items-center gap-1 absolute right-0 cursor-pointer">
 								<img src="./svg/comment.svg" alt="downvote" width="16px" />
-								<small>
+								<span>
 									{post.attributes.comments.data.length === 1
 										? post.attributes.comments.data.length + " comment"
 										: post.attributes.comments.data.length + " comments"}
-								</small>
+								</span>
 							</div>
 						</footer>
 					</article>

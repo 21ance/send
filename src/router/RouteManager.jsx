@@ -3,6 +3,7 @@ import Header from "../components/header/Header";
 import Feed from "../pages/Feed";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Post from "../pages/Post";
 import { useState } from "react";
 
 const RouteManager = () => {
@@ -36,6 +37,7 @@ const RouteManager = () => {
 						/>
 					}
 				/>
+				<Route path="/posts/:postID" element={<Post />} />
 			</Routes>
 		</HashRouter>
 	);
