@@ -29,9 +29,7 @@ const Register = (props) => {
 		setRegisterError(false);
 	}, [registerDetails]);
 
-	function validateRegister(e) {
-		e.preventDefault();
-
+	function validateRegister() {
 		if (validateFormFields() === true) {
 			registerUser();
 		}
@@ -164,7 +162,10 @@ const Register = (props) => {
 					<FormError text={registerError.confirmPassword} />
 				)}
 				<FormSubmit
-					onClick={(e) => validateRegister(e)}
+					onClick={(e) => {
+						e.preventDefault();
+						validateRegister();
+					}}
 					text="Register Account"
 				/>
 			</form>

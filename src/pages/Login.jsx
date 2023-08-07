@@ -49,8 +49,7 @@ const Login = (props) => {
 		}
 	}
 
-	function validateLogin(e) {
-		e.preventDefault();
+	function validateLogin() {
 		if (loginForm.username === "" || loginForm.password === "") {
 			return setLoginError(true);
 		}
@@ -90,7 +89,13 @@ const Login = (props) => {
 				>
 					Forgot Password?
 				</a>
-				<FormSubmit onClick={(e) => validateLogin(e)} text="Login" />
+				<FormSubmit
+					onClick={(e) => {
+						e.preventDefault();
+						validateLogin();
+					}}
+					text="Login"
+				/>
 				{loginError && (
 					<span className="text-red-500 text-sm mt-[-0.5rem]">
 						Unable to login, please enter a valid username and password
