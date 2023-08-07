@@ -3,8 +3,9 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
+import BoxContainer from "../components/common/BoxContainer";
 
-const Post = () => {
+const PostDetails = () => {
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
 		`http://localhost:1337/api/posts/${postID}?populate=deep,3`
@@ -26,7 +27,7 @@ const Post = () => {
 
 	return (
 		<>
-			<main className="px-4 py-2 bg-white my-2 md:w-[700px]">
+			<BoxContainer className="my-2 md:w-[700px]">
 				<TimePassed
 					text={`Posted by ${postContent.OP.username}`}
 					currentTime={postContent.post.publishedAt}
@@ -38,7 +39,7 @@ const Post = () => {
 					commentLength={postContent.comments.length}
 					className="mt-4"
 				/>
-			</main>
+			</BoxContainer>
 			{postContent.comments.length === 0 ? (
 				<h2>no comments yet</h2>
 			) : (
@@ -46,10 +47,7 @@ const Post = () => {
 					.map((comment) => {
 						console.log(comment);
 						return (
-							<div
-								key={comment.id}
-								className="px-4 py-2 my-1 bg-white md:w-[700px]"
-							>
+							<BoxContainer key={comment.id} className="md:w-[700px] my-1">
 								<span className="flex items-center gap-2">
 									{`${comment.attributes.user.data.attributes.username} `}
 									<TimePassed
@@ -57,7 +55,7 @@ const Post = () => {
 									/>
 								</span>
 								<p>{comment.attributes.content}</p>
-							</div>
+							</BoxContainer>
 						);
 					})
 					.reverse()
@@ -66,4 +64,4 @@ const Post = () => {
 	);
 };
 
-export default Post;
+export default PostDetails;

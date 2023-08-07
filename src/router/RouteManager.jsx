@@ -3,7 +3,7 @@ import Header from "../components/header/Header";
 import Feed from "../pages/Feed";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Post from "../pages/Post";
+import PostDetails from "../pages/PostDetails";
 import { useState } from "react";
 
 const RouteManager = () => {
@@ -13,12 +13,9 @@ const RouteManager = () => {
 
 	return (
 		<HashRouter>
-			<Header
-				loginDetails={loginDetails}
-				setLoginDetails={setLoginDetails}
-			/>
+			<Header loginDetails={loginDetails} />
 			<Routes>
-				<Route path="/" element={<Feed />} />
+				<Route path="/" element={<Feed loginDetails={loginDetails} />} />
 				<Route
 					path="/login"
 					element={
@@ -37,7 +34,8 @@ const RouteManager = () => {
 						/>
 					}
 				/>
-				<Route path="/posts/:postID" element={<Post />} />
+
+				<Route path="/posts/:postID" element={<PostDetails />} />
 			</Routes>
 		</HashRouter>
 	);

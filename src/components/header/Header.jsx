@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
+import { reloadPage } from "../../helper/functions";
 
 const Header = (props) => {
 	const { loginDetails, setLoginDetails } = props;
 
 	function logOut() {
 		localStorage.removeItem("login");
-		setLoginDetails(null);
+		reloadPage();
 	}
 
 	return (
 		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
 			<h1>Logo/text</h1>
 			<div className="flex items-center">
-				{loginDetails !== null ? (
+				{loginDetails ? (
 					<>
 						<img
 							src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"

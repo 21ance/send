@@ -35,11 +35,32 @@ function calculateTimePassed(pastDate) {
 		return `${parseInt(diff.hours)} hours ago`;
 	}
 
-	if (diff.minutes <= 1) {
+	if (diff.minutes <= 2) {
 		return `${parseInt(diff.minutes)} minute ago`;
-	} else if (diff.minutes > 1) {
+	} else if (diff.minutes > 2) {
 		return `${parseInt(diff.minutes)} minutes ago`;
 	}
 }
 
-export { calculateTimePassed };
+const fetchRequest = async (link, method = "GET", body, token) => {
+	try {
+		const res = await fetch(link, {
+			method: method,
+			body: JSON.stringify(body),
+			headers: {
+				"Content-type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		const data = await res.json();
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+function reloadPage() {
+	window.location.reload(true);
+}
+
+export { calculateTimePassed, fetchRequest, reloadPage };
