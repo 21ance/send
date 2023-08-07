@@ -6,6 +6,7 @@ import {
 	FormError,
 } from "../components/account/FormElements";
 import { useNavigate } from "react-router-dom";
+import { fetchRequest } from "../helper/functions";
 
 const Register = (props) => {
 	const { loginDetails, setLoginDetails } = props;
@@ -69,28 +70,21 @@ const Register = (props) => {
 		return true;
 	}
 
-	const registerUser = async () => {
-		try {
-			const res = await fetch(
-				"http://localhost:1337/api/auth/local/register",
-				{
-					method: "POST",
-					body: JSON.stringify({
-						username: registerDetails.username,
-						email: registerDetails.email,
-						password: registerDetails.password,
-					}),
-					headers: {
-						"Content-type": "application/json",
-					},
-				}
-			);
-			const data = await res.json();
-			validateUser(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	function registerUser() {
+		const body = {
+			username: registerDetails.username,
+			email: registerDetails.email,
+			password: registerDetails.password,
+		};
+
+		fetchRequest(
+			"http://localhost:1337/api/auth/local/register",
+			"POST",
+			body,
+			"",
+			validateUser
+		);
+	}
 
 	function validateUser(user) {
 		if (user.data === null) {

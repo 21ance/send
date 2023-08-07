@@ -3,6 +3,7 @@ import AccountElement from "../components/account/AccountElement";
 import { FormInput, FormSubmit } from "../components/account/FormElements";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { fetchRequest } from "../helper/functions";
 
 const Login = (props) => {
 	const { loginDetails, setLoginDetails } = props;
@@ -23,24 +24,20 @@ const Login = (props) => {
 		setLoginError(false);
 	}, [loginForm]);
 
-	const fetchUser = async () => {
-		try {
-			const res = await fetch("http://localhost:1337/api/auth/local", {
-				method: "POST",
-				body: JSON.stringify({
-					identifier: loginForm.username,
-					password: loginForm.password,
-				}),
-				headers: {
-					"Content-type": "application/json",
-				},
-			});
-			const data = await res.json();
-			validateUser(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	function fetchUser() {
+		const body = {
+			identifier: loginForm.username,
+			password: loginForm.password,
+		};
+
+		fetchRequest(
+			"http://localhost:1337/api/auth/local",
+			"POST",
+			body,
+			"",
+			validateUser
+		);
+	}
 
 	function validateUser(user) {
 		if (user.data === null) {

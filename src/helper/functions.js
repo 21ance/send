@@ -42,17 +42,24 @@ function calculateTimePassed(pastDate) {
 	}
 }
 
-const fetchRequest = async (link, method = "GET", body, token) => {
+const fetchRequest = async (
+	link,
+	method = "GET",
+	body,
+	token,
+	validate
+) => {
 	try {
 		const res = await fetch(link, {
 			method: method,
 			body: JSON.stringify(body),
 			headers: {
 				"Content-type": "application/json",
-				Authorization: `Bearer ${token}`,
+				Authorization: token,
 			},
 		});
 		const data = await res.json();
+		validate(data);
 		return data;
 	} catch (error) {
 		console.log(error);

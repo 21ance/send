@@ -4,7 +4,7 @@ import { useState } from "react";
 import PostFooter from "../components/common/PostFooter";
 import TimePassed from "../components/common/TimePassed";
 import BoxContainer from "../components/common/BoxContainer";
-import { fetchRequest } from "../helper/functions";
+import { fetchRequest, reloadPage } from "../helper/functions";
 
 const Feed = (props) => {
 	const { loginDetails } = props;
@@ -93,10 +93,9 @@ const PostBox = (props) => {
 				},
 			},
 		};
-		const token = loginDetails.jwt;
+		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest("http://localhost:1337/api/posts", "POST", data, token);
-		setUserPosting(false);
-		setPostForm({});
+		reloadPage();
 	}
 
 	return (
