@@ -60,6 +60,9 @@ const Feed = (props) => {
 						</p>
 						<PostFooter
 							commentLength={post.attributes.comments.data.length}
+							loginDetails={loginDetails}
+							reactions={post.attributes.reactions}
+							postID={post.id}
 						/>
 					</BoxContainer>
 				);

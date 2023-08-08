@@ -35,7 +35,10 @@ const RouteManager = () => {
 					}
 				/>
 
-				<Route path="/posts/:postID" element={<PostDetails />} />
+				<Route
+					path="/posts/:postID"
+					element={<PostDetails loginDetails={loginDetails} />}
+				/>
 			</Routes>
 		</HashRouter>
 	);

@@ -47,7 +47,7 @@ const fetchRequest = async (
 	method = "GET",
 	body,
 	token,
-	validate
+	doSomething
 ) => {
 	try {
 		const res = await fetch(link, {
@@ -59,7 +59,7 @@ const fetchRequest = async (
 			},
 		});
 		const data = await res.json();
-		validate(data);
+		doSomething(data);
 		return data;
 	} catch (error) {
 		console.log(error);

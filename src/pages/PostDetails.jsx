@@ -5,7 +5,9 @@ import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
 import BoxContainer from "../components/common/BoxContainer";
 
-const PostDetails = () => {
+const PostDetails = (props) => {
+	const { loginDetails } = props;
+
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
 		`http://localhost:1337/api/posts/${postID}?populate=deep,3`
@@ -38,6 +40,9 @@ const PostDetails = () => {
 				<PostFooter
 					commentLength={postContent.comments.length}
 					className="mt-4"
+					loginDetails={loginDetails}
+					reactions={data.data.attributes.reactions}
+					postID={data.data.id}
 				/>
 			</BoxContainer>
 			{postContent.comments.length === 0 ? (
@@ -45,7 +50,6 @@ const PostDetails = () => {
 			) : (
 				postContent.comments
 					.map((comment) => {
-						console.log(comment);
 						return (
 							<BoxContainer key={comment.id} className="md:w-[700px] my-1">
 								<span className="flex items-center gap-2">
