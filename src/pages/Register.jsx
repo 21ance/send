@@ -43,6 +43,18 @@ const Register = (props) => {
 				username: "Username must be at least 3 characters",
 			}));
 		}
+		if (registerDetails.username.length > 20) {
+			return setRegisterError((prev) => ({
+				...prev,
+				username: "Username must be 20 characters or less",
+			}));
+		}
+		if (registerDetails.username.includes(" ")) {
+			return setRegisterError((prev) => ({
+				...prev,
+				username: "Username must not have space",
+			}));
+		}
 		if (!registerDetails.email.match(validEmailRegex)) {
 			return setRegisterError((prev) => ({
 				...prev,
