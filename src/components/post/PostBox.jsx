@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchRequest, reloadPage } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
 
@@ -9,6 +9,20 @@ const PostBox = (props) => {
 		title: "",
 		content: "",
 	});
+
+	useEffect(() => {
+		function handleEsc(e) {
+			if (e.keyCode === 27) {
+				setUserPosting(false);
+			}
+		}
+
+		document.addEventListener("keydown", handleEsc);
+
+		return () => {
+			document.removeEventListener("keydown", handleEsc);
+		};
+	}, []);
 
 	function showPostForm() {
 		if (!loginDetails) return setError("Please login before posting");
@@ -50,8 +64,8 @@ const PostBox = (props) => {
 					/>
 				</BoxContainer>
 			) : (
-				<BoxContainer>
-					<form className="my-2 flex flex-col gap-1">
+				<BoxContainer className="my-2">
+					<form className="flex flex-col gap-1">
 						<small>Post as {loginDetails.user.username}</small>
 						<input
 							type="text"

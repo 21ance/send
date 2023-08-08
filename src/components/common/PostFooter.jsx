@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { fetchRequest } from "../../helper/functions";
+import { useNavigate } from "react-router-dom";
 
 const PostFooter = (props) => {
 	const { commentLength, className, loginDetails, reactions, postID } =
 		props;
+	const navigate = useNavigate();
+
 	const [votes, setVotes] = useState(
 		reactions.data.filter((reaction) => reaction.attributes.vote === true)
 			.length
 	);
 	const [myVote, setMyVote] = useState(() => {
-		const vote = reactions.data.filter(
-			(reaction) =>
+		const vote = reactions.data.filter((reaction) => {
+			if (loginDetails === null) return;
+			return (
 				reaction.attributes.users_permissions_user.data.id ===
 				loginDetails.user.id
-		);
+			);
+		});
 		if (!vote[0]) return null;
 		return {
 			vote: vote[0].attributes.vote,
@@ -82,6 +87,7 @@ const PostFooter = (props) => {
 			<button
 				className="text-xl flex items-center gap-1"
 				onClick={() => {
+					if (loginDetails === null) return navigate("/login");
 					if (myVote === null) {
 						setMyVote(true);
 						setVotes((prev) => prev + 1);
