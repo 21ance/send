@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
 import BoxContainer from "../components/common/BoxContainer";
+import CommentBox from "../components/post/CommentBox";
 
 const PostDetails = (props) => {
 	const { loginDetails } = props;
@@ -17,8 +18,8 @@ const PostDetails = (props) => {
 	useEffect(() => {
 		if (!data) return;
 		setPostContent({
-			post: data.data.attributes,
-			OP: data.data.attributes.users_permissions_user.data.attributes,
+			post: data.data,
+			OP: data.data.attributes.users_permissions_user.data,
 			comments: data.data.attributes.comments.data,
 		});
 	}, [data]);
@@ -31,12 +32,14 @@ const PostDetails = (props) => {
 		<>
 			<BoxContainer className="my-2">
 				<TimePassed
-					text={`Posted by ${postContent.OP.username}`}
-					currentTime={postContent.post.publishedAt}
+					text={`Posted by ${postContent.OP.attributes.username}`}
+					currentTime={postContent.post.attributes.publishedAt}
 					className="text-[#787C7E]"
 				/>
-				<h1 className="font-bold text-lg">{postContent.post.title}</h1>
-				<p>{postContent.post.content}</p>
+				<h1 className="font-bold text-lg">
+					{postContent.post.attributes.title}
+				</h1>
+				<p>{postContent.post.attributes.content}</p>
 				<PostFooter
 					commentLength={postContent.comments.length}
 					className="mt-4"
@@ -45,6 +48,11 @@ const PostDetails = (props) => {
 					postID={data.data.id}
 				/>
 			</BoxContainer>
+			<CommentBox
+				loginDetails={loginDetails}
+				postContent={postContent}
+				setPostContent={setPostContent}
+			/>
 			{postContent.comments.length === 0 ? (
 				<h2>no comments yet</h2>
 			) : (

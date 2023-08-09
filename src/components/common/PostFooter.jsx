@@ -106,9 +106,13 @@ const PostFooter = (props) => {
 				}}
 			>
 				{myVote === null || myVote.vote === false ? (
-					<AiOutlineLike />
+					<span className="hover:text-blue-500">
+						<AiOutlineLike />
+					</span>
 				) : (
-					<AiFillLike />
+					<span className="text-blue-500">
+						<AiFillLike />
+					</span>
 				)}
 				<span className="text-base">{votes}</span>
 			</button>

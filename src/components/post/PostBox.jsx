@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchRequest, reloadPage } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
+import PostButton from "./PostButton";
+import { Link } from "react-router-dom";
 
 const PostBox = (props) => {
 	const { userPosting, setUserPosting, loginDetails } = props;
@@ -25,7 +27,7 @@ const PostBox = (props) => {
 	}, []);
 
 	function showPostForm() {
-		if (!loginDetails) return setError("Please login before posting");
+		if (!loginDetails) return setError("Login your account to post");
 		setUserPosting(true);
 	}
 
@@ -94,8 +96,9 @@ const PostBox = (props) => {
 						></textarea>
 						<footer className="flex flex-row-reverse gap-2 mt-2 justify-start">
 							<PostButton
+								type="submit"
 								text="Post"
-								className="bg-[#787C7E] text-white hover:bg-[#787C7E]/80"
+								className="bg-blue-500 text-white hover:bg-blue-500/80"
 								onClick={(e) => {
 									e.preventDefault();
 									createPost();
@@ -110,21 +113,14 @@ const PostBox = (props) => {
 					</form>
 				</BoxContainer>
 			)}
-			{error && <small className="text-red-500">{error}</small>}
+			{error && (
+				<Link to={"/login"}>
+					<small className="text-red-500 hover:text-blue-500">
+						{error}
+					</small>
+				</Link>
+			)}
 		</>
-	);
-};
-
-const PostButton = (props) => {
-	const { text, className, onClick } = props;
-
-	return (
-		<button
-			className={`${className} px-4 py-1 rounded-full border-[1px]`}
-			onClick={onClick}
-		>
-			{text}
-		</button>
 	);
 };
 
