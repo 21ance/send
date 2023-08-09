@@ -29,7 +29,7 @@ const PostDetails = (props) => {
 
 	return (
 		<>
-			<BoxContainer className="my-2 md:w-[700px]">
+			<BoxContainer className="my-2">
 				<TimePassed
 					text={`Posted by ${postContent.OP.username}`}
 					currentTime={postContent.post.publishedAt}
@@ -51,7 +51,7 @@ const PostDetails = (props) => {
 				postContent.comments
 					.map((comment) => {
 						return (
-							<BoxContainer key={comment.id} className="md:w-[700px] my-1">
+							<BoxContainer key={comment.id} className="my-1">
 								<span className="flex items-center gap-2">
 									{`${comment.attributes.user.data.attributes.username} `}
 									<TimePassed

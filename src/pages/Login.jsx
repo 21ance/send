@@ -24,7 +24,7 @@ const Login = (props) => {
 		setLoginError(false);
 	}, [loginForm]);
 
-	function fetchUser() {
+	function attemptLogin() {
 		const body = {
 			identifier: loginForm.username,
 			password: loginForm.password,
@@ -49,11 +49,11 @@ const Login = (props) => {
 		}
 	}
 
-	function validateLogin() {
+	function validateLoginForm() {
 		if (loginForm.username === "" || loginForm.password === "") {
 			return setLoginError(true);
 		}
-		fetchUser();
+		attemptLogin();
 	}
 
 	return (
@@ -92,7 +92,7 @@ const Login = (props) => {
 				<FormSubmit
 					onClick={(e) => {
 						e.preventDefault();
-						validateLogin();
+						validateLoginForm();
 					}}
 					text="Login"
 				/>

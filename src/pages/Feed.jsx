@@ -23,7 +23,7 @@ const Feed = (props) => {
 	if (error) return <p>Error...</p>;
 
 	return (
-		<main className="md:w-[700px]">
+		<main>
 			<PostBox
 				userPosting={userPosting}
 				setUserPosting={setUserPosting}

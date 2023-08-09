@@ -29,7 +29,7 @@ const PostBox = (props) => {
 		setUserPosting(true);
 	}
 
-	function postRequest() {
+	function createPost() {
 		if (postForm.title === "") return console.log("title empty");
 
 		const data = {
@@ -98,7 +98,7 @@ const PostBox = (props) => {
 								className="bg-[#787C7E] text-white hover:bg-[#787C7E]/80"
 								onClick={(e) => {
 									e.preventDefault();
-									postRequest();
+									createPost();
 								}}
 							/>
 							<PostButton

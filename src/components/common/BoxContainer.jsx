@@ -3,7 +3,7 @@ const BoxContainer = (props) => {
 
 	return (
 		<div
-			className={`px-4 py-2 bg-white border-[1px] rounded ${className}`}
+			className={`px-4 py-2 bg-white border-[1px] rounded md:w-[700px] ${className}`}
 			onClick={onClick}
 		>
 			{children}

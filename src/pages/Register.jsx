@@ -10,7 +10,7 @@ import { fetchRequest } from "../helper/functions";
 
 const Register = (props) => {
 	const { loginDetails, setLoginDetails } = props;
-	const [registerDetails, setRegisterDetails] = useState({
+	const [registerForm, setRegisterForm] = useState({
 		username: "",
 		email: "",
 		password: "",
@@ -27,49 +27,49 @@ const Register = (props) => {
 
 	useEffect(() => {
 		setRegisterError(false);
-	}, [registerDetails]);
+	}, [registerForm]);
 
 	function validateRegister() {
 		if (validateFormFields() === true) {
-			registerUser();
+			attemptRegister();
 		}
 	}
 
 	function validateFormFields() {
 		const validEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-		if (registerDetails.username.length < 3) {
+		if (registerForm.username.length < 3) {
 			return setRegisterError((prev) => ({
 				...prev,
 				username: "Username must be at least 3 characters",
 			}));
 		}
-		if (registerDetails.username.length > 20) {
+		if (registerForm.username.length > 20) {
 			return setRegisterError((prev) => ({
 				...prev,
 				username: "Username must be 20 characters or less",
 			}));
 		}
-		if (registerDetails.username.includes(" ")) {
+		if (registerForm.username.includes(" ")) {
 			return setRegisterError((prev) => ({
 				...prev,
 				username: "Username must not have space",
 			}));
 		}
-		if (!registerDetails.email.match(validEmailRegex)) {
+		if (!registerForm.email.match(validEmailRegex)) {
 			return setRegisterError((prev) => ({
 				...prev,
 				email: "Please enter a valid email address",
 			}));
 		}
-		if (registerDetails.password.length < 6) {
+		if (registerForm.password.length < 6) {
 			return setRegisterError((prev) => ({
 				...prev,
 				password: "Password must be at least 6 characters",
 				confirmPassword: "Password does not match",
 			}));
 		} else if (
-			registerDetails.password !== registerDetails.confirmPassword ||
-			registerDetails.confirmPassword === ""
+			registerForm.password !== registerForm.confirmPassword ||
+			registerForm.confirmPassword === ""
 		) {
 			return setRegisterError((prev) => ({
 				...prev,
@@ -80,11 +80,11 @@ const Register = (props) => {
 		return true;
 	}
 
-	function registerUser() {
+	function attemptRegister() {
 		const body = {
-			username: registerDetails.username,
-			email: registerDetails.email,
-			password: registerDetails.password,
+			username: registerForm.username,
+			email: registerForm.email,
+			password: registerForm.password,
 		};
 
 		fetchRequest(
@@ -117,9 +117,9 @@ const Register = (props) => {
 					type="text"
 					label="Username"
 					placeholder="Enter your username"
-					value={registerDetails.username}
+					value={registerForm.username}
 					onChange={(e) => {
-						setRegisterDetails((prev) => ({
+						setRegisterForm((prev) => ({
 							...prev,
 							username: e.target.value,
 						}));
@@ -132,9 +132,9 @@ const Register = (props) => {
 					type="text"
 					label="Email"
 					placeholder="Enter your email"
-					value={registerDetails.email}
+					value={registerForm.email}
 					onChange={(e) => {
-						setRegisterDetails((prev) => ({
+						setRegisterForm((prev) => ({
 							...prev,
 							email: e.target.value,
 						}));
@@ -147,9 +147,9 @@ const Register = (props) => {
 					type="password"
 					label="Password"
 					placeholder="Enter your password"
-					value={registerDetails.password}
+					value={registerForm.password}
 					onChange={(e) => {
-						setRegisterDetails((prev) => ({
+						setRegisterForm((prev) => ({
 							...prev,
 							password: e.target.value,
 						}));
@@ -162,9 +162,9 @@ const Register = (props) => {
 					type="password"
 					label="Confirm Password"
 					placeholder="Re-enter your password"
-					value={registerDetails.confirmPassword}
+					value={registerForm.confirmPassword}
 					onChange={(e) => {
-						setRegisterDetails((prev) => ({
+						setRegisterForm((prev) => ({
 							...prev,
 							confirmPassword: e.target.value,
 						}));

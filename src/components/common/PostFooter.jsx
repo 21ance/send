@@ -27,7 +27,7 @@ const PostFooter = (props) => {
 		};
 	});
 
-	function postReaction(vote) {
+	function createReaction(vote) {
 		const data = {
 			data: {
 				vote: vote,
@@ -91,7 +91,7 @@ const PostFooter = (props) => {
 					if (myVote === null) {
 						setMyVote(true);
 						setVotes((prev) => prev + 1);
-						return postReaction(true);
+						return createReaction(true);
 					}
 					if (myVote.vote === false) {
 						setMyVote((prev) => ({ ...prev, vote: true }));
