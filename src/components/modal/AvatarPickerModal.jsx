@@ -11,28 +11,22 @@ const AvatarPickerModal = (props) => {
 			handleSave={() => setModal(false)}
 		>
 			<section className="flex gap-4 flex-wrap mb-4">
+				<ProfileOption src="/svg/avatar/maleOne.svg" setPhoto={setPhoto} />
+				<ProfileOption src="/svg/avatar/maleTwo.svg" setPhoto={setPhoto} />
 				<ProfileOption
-					src="/public/svg/avatar/maleOne.svg"
+					src="/svg/avatar/maleThree.svg"
 					setPhoto={setPhoto}
 				/>
 				<ProfileOption
-					src="/public/svg/avatar/maleTwo.svg"
+					src="/svg/avatar/femaleOne.svg"
 					setPhoto={setPhoto}
 				/>
 				<ProfileOption
-					src="/public/svg/avatar/maleThree.svg"
+					src="/svg/avatar/femaleTwo.svg"
 					setPhoto={setPhoto}
 				/>
 				<ProfileOption
-					src="/public/svg/avatar/femaleOne.svg"
-					setPhoto={setPhoto}
-				/>
-				<ProfileOption
-					src="/public/svg/avatar/femaleTwo.svg"
-					setPhoto={setPhoto}
-				/>
-				<ProfileOption
-					src="/public/svg/avatar/femaleThree.svg"
+					src="/svg/avatar/femaleThree.svg"
 					setPhoto={setPhoto}
 				/>
 			</section>

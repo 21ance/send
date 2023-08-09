@@ -17,7 +17,7 @@ const Register = (props) => {
 		email: "",
 		password: "",
 		confirmPassword: "",
-		avatar: "/public/svg/avatar/maleOne.svg",
+		avatar: "/svg/avatar/maleOne.svg",
 	});
 	const [registerError, setRegisterError] = useState(false);
 	const [modal, setModal] = useState(false);

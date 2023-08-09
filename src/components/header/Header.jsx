@@ -11,7 +11,7 @@ const Header = (props) => {
 	return (
 		<header className="flex justify-between px-4 py-2 bg-white w-full ">
 			<Link to={"/"}>
-				<img src="/public/png/icon.png" alt="send logo" />
+				<img src="/png/icon.png" alt="send logo" />
 			</Link>
 
 			<div>
