@@ -18,16 +18,19 @@ const PostDetails = (props) => {
 
 	useEffect(() => {
 		if (!data) return;
+		if (data.data === null) return setPostContent(false);
+
 		setPostContent({
 			post: data.data,
 			OP: data.data.attributes.users_permissions_user.data,
 			comments: data.data.attributes.comments.data,
+			reactions: data.data.attributes.reactions,
 		});
 	}, [data]);
 
 	// to add loading component
-	if (loading || !postContent) return <p>Loading...</p>;
-	if (error) return <p>Error...</p>;
+	if (loading) return <p>Loading...</p>;
+	if (error || !postContent) return <p>Error...</p>;
 
 	return (
 		<>
@@ -45,8 +48,8 @@ const PostDetails = (props) => {
 					commentLength={postContent.comments.length}
 					className="mt-4"
 					loginDetails={loginDetails}
-					reactions={data.data.attributes.reactions}
-					postID={data.data.id}
+					reactions={postContent.reactions}
+					postID={postContent.post.id}
 				/>
 			</BoxContainer>
 			<CommentBox
