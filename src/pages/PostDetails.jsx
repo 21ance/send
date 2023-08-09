@@ -55,7 +55,7 @@ const PostDetails = (props) => {
 				setPostContent={setPostContent}
 			/>
 			{postContent.comments.length === 0 ? (
-				<h2>no comments yet</h2>
+				<h2 className="text-center">no comments yet</h2>
 			) : (
 				postContent.comments
 					.map((comment) => {

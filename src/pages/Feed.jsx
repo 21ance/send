@@ -36,7 +36,7 @@ const Feed = (props) => {
 					<BoxContainer
 						key={post.id}
 						className="my-2 px-7 py-6 flex flex-col gap-4 cursor-pointer hover:border-[#787C7E] duration-200"
-						onClick={(e) => {
+						handleClick={() => {
 							openPost(post.id);
 						}}
 					>
