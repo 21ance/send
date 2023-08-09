@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
-import { reloadPage } from "../../helper/functions";
 import AvatarPhoto from "../common/AvatarPhoto";
 import { BiChevronDown } from "react-icons/bi";
+import HeaderDropdown from "./HeaderDropDown";
+import { useState } from "react";
 
 const Header = (props) => {
 	const { loginDetails } = props;
-
-	function logOut() {
-		localStorage.removeItem("login");
-		reloadPage();
-	}
+	const [dropdown, setDropdown] = useState(false);
 
 	return (
 		<header className="flex justify-between px-4 py-2 bg-white w-full ">
@@ -19,18 +16,20 @@ const Header = (props) => {
 
 			<div>
 				{loginDetails ? (
-					<Link
-						to={"/"}
-						onClick={() => logOut()}
-						className="flex items-center"
+					<div
+						className="flex items-center cursor-pointer relative "
+						onClick={() => setDropdown((prev) => !prev)}
 					>
 						<AvatarPhoto
 							src={loginDetails.user.avatarUrl}
 							className="w-[32px] mr-1"
 						/>
-						<small>{loginDetails.user.username}</small>
-						<BiChevronDown />
-					</Link>
+						<small className="hover:text-blue-500 flex items-center">
+							{loginDetails.user.username}
+							<BiChevronDown />
+						</small>
+						{dropdown && <HeaderDropdown />}
+					</div>
 				) : (
 					<Link to={"/login"} className="text-[#787C7E]">
 						Login
