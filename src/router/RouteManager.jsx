@@ -4,6 +4,7 @@ import Feed from "../pages/Feed";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PostDetails from "../pages/PostDetails";
+import Profile from "../pages/Profile";
 import { useState } from "react";
 
 const RouteManager = () => {
@@ -34,11 +35,11 @@ const RouteManager = () => {
 						/>
 					}
 				/>
-
 				<Route
 					path="/posts/:postID"
 					element={<PostDetails loginDetails={loginDetails} />}
 				/>
+				<Route path="/profile/:userID" element={<Profile />} />
 			</Routes>
 		</HashRouter>
 	);

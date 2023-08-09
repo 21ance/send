@@ -28,7 +28,7 @@ const Header = (props) => {
 							{loginDetails.user.username}
 							<BiChevronDown />
 						</small>
-						{dropdown && <HeaderDropdown />}
+						{dropdown && <HeaderDropdown loginDetails={loginDetails} />}
 					</div>
 				) : (
 					<Link to={"/login"} className="text-[#787C7E]">

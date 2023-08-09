@@ -74,8 +74,7 @@ const PostFooter = (props) => {
 			`http://localhost:1337/api/reactions/${myVote.id}`,
 			"PUT",
 			data,
-			token,
-			console.log
+			token
 		);
 	}
 

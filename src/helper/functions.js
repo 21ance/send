@@ -1,5 +1,9 @@
 import { DateTime } from "luxon";
 
+function convertDateTime(dateTime) {
+	return DateTime.now(dateTime).toFormat("MMMM dd, yyyy");
+}
+
 function calculateTimePassed(pastDate) {
 	const compare = DateTime.fromISO(new Date().toJSON()).diff(pastDate, [
 		"years",
@@ -47,7 +51,7 @@ const fetchRequest = async (
 	method = "GET",
 	body,
 	token,
-	doSomething,
+	doSomething = console.log,
 	raw = true
 ) => {
 	try {
@@ -77,4 +81,4 @@ function reloadPage() {
 	window.location.reload(true);
 }
 
-export { calculateTimePassed, fetchRequest, reloadPage };
+export { convertDateTime, calculateTimePassed, fetchRequest, reloadPage };

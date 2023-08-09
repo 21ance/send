@@ -4,7 +4,9 @@ import { AiOutlineProfile, AiOutlineLogout } from "react-icons/ai";
 import { MdDarkMode } from "react-icons/md";
 import { reloadPage } from "../../helper/functions";
 
-const HeaderDropdown = () => {
+const HeaderDropdown = (props) => {
+	const { loginDetails } = props;
+
 	function logOut() {
 		localStorage.removeItem("login");
 		reloadPage();
@@ -15,7 +17,11 @@ const HeaderDropdown = () => {
 			className="absolute flex flex-col bottom-[-115px] right-[-0.5rem] whitespace-nowrap gap-2"
 			width="fit-content"
 		>
-			<DropdownItem icon={<AiOutlineProfile />} text="Profile" />
+			<DropdownItem
+				icon={<AiOutlineProfile />}
+				text="Profile"
+				link={`/profile/${loginDetails.user.id}`}
+			/>
 			<DropdownItem icon={<MdDarkMode />} text="Dark Mode" />
 			<DropdownItem
 				icon={<AiOutlineLogout />}
@@ -27,10 +33,10 @@ const HeaderDropdown = () => {
 };
 
 const DropdownItem = (props) => {
-	const { text, icon, handleClick } = props;
+	const { text, icon, handleClick, link = "/" } = props;
 	return (
 		<Link
-			to={"/"}
+			to={link}
 			className="flex items-center hover:text-blue-500"
 			onClick={handleClick}
 		>
