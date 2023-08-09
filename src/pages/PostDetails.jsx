@@ -5,6 +5,7 @@ import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
 import BoxContainer from "../components/common/BoxContainer";
 import CommentBox from "../components/post/CommentBox";
+import AvatarPhoto from "../components/common/AvatarPhoto";
 
 const PostDetails = (props) => {
 	const { loginDetails } = props;
@@ -59,14 +60,20 @@ const PostDetails = (props) => {
 				postContent.comments
 					.map((comment) => {
 						return (
-							<BoxContainer key={comment.id} className="my-1">
+							<BoxContainer
+								key={comment.id}
+								className="my-1 grid grid-cols-[auto,1fr] gap-1"
+							>
+								<AvatarPhoto
+									src={comment.attributes.user.data.attributes.avatarUrl}
+								/>
 								<span className="flex items-center gap-2">
 									{`${comment.attributes.user.data.attributes.username} `}
 									<TimePassed
 										currentTime={comment.attributes.publishedAt}
 									/>
 								</span>
-								<p>{comment.attributes.content}</p>
+								<p className="col-[1/-1]">{comment.attributes.content}</p>
 							</BoxContainer>
 						);
 					})

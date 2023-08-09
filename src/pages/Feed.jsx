@@ -5,6 +5,7 @@ import PostFooter from "../components/common/PostFooter";
 import TimePassed from "../components/common/TimePassed";
 import BoxContainer from "../components/common/BoxContainer";
 import PostBox from "../components/post/PostBox";
+import AvatarPhoto from "../components/common/AvatarPhoto";
 
 const Feed = (props) => {
 	const { loginDetails } = props;
@@ -40,10 +41,11 @@ const Feed = (props) => {
 						}}
 					>
 						<header className="grid grid-cols-[auto,1fr] gap-x-2">
-							<img
-								src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
-								alt="profile picture"
-								width="40px"
+							<AvatarPhoto
+								src={
+									post.attributes.users_permissions_user.data.attributes
+										.avatarUrl
+								}
 								className="row-[1/3] self-center"
 							/>
 							<span className="col-[2/3] font-medium text-sm">

@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { reloadPage } from "../../helper/functions";
+import AvatarPhoto from "../common/AvatarPhoto";
 
 const Header = (props) => {
-	const { loginDetails, setLoginDetails } = props;
+	const { loginDetails } = props;
 
 	function logOut() {
 		localStorage.removeItem("login");
 		reloadPage();
 	}
+
+	console.log(loginDetails);
 
 	return (
 		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
@@ -15,11 +18,7 @@ const Header = (props) => {
 			<div className="flex items-center">
 				{loginDetails ? (
 					<>
-						<img
-							src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
-							alt="profile"
-							width="40px"
-						/>
+						<AvatarPhoto src={loginDetails.user.avatarUrl} />
 						<span>{loginDetails.user.username}</span>
 						<Link
 							to={"/"}

@@ -39,6 +39,7 @@ const CommentBox = (props) => {
 					id: loginDetails.user.id,
 					attributes: {
 						username: loginDetails.user.username,
+						avatarUrl: loginDetails.user.avatarUrl,
 					},
 				},
 			};

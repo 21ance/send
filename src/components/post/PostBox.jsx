@@ -3,6 +3,7 @@ import { fetchRequest, reloadPage } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
 import { Link } from "react-router-dom";
+import AvatarPhoto from "../common/AvatarPhoto";
 
 const PostBox = (props) => {
 	const { userPosting, setUserPosting, loginDetails } = props;
@@ -52,11 +53,7 @@ const PostBox = (props) => {
 		<>
 			{!userPosting ? (
 				<BoxContainer className="flex gap-2 my-2">
-					<img
-						src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
-						alt="profile picture"
-						width="40px"
-					/>
+					<AvatarPhoto src={loginDetails.user.avatarUrl} />
 					<input
 						type="text"
 						placeholder="Create Post"
