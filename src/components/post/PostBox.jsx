@@ -53,7 +53,11 @@ const PostBox = (props) => {
 		<>
 			{!userPosting ? (
 				<BoxContainer className="flex gap-2 my-2">
-					<AvatarPhoto src={loginDetails.user.avatarUrl} />
+					{loginDetails ? (
+						<AvatarPhoto src={loginDetails.user.avatarUrl} />
+					) : (
+						<AvatarPhoto />
+					)}
 					<input
 						type="text"
 						placeholder="Create Post"

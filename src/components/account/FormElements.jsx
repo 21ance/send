@@ -21,7 +21,7 @@ const FormSubmit = (props) => {
 	return (
 		<button
 			type="submit"
-			className="bg-[#1E232C] rounded-lg h-[56px] text-white mt-6"
+			className="bg-blue-500 hover:bg-blue-500/80 rounded-lg h-[56px] text-white mt-6"
 			onClick={onClick}
 		>
 			{text}

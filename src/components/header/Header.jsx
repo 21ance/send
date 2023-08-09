@@ -10,8 +10,6 @@ const Header = (props) => {
 		reloadPage();
 	}
 
-	console.log(loginDetails);
-
 	return (
 		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
 			<h1>Logo/text</h1>

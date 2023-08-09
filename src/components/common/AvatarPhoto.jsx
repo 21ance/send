@@ -1,11 +1,12 @@
 const AvatarPhoto = (props) => {
-	const { src, className } = props;
+	const { src = "/public/svg/avatar/maleOne.svg", className } = props;
 
 	return (
 		<img
 			src={src}
 			alt="profile photo"
 			width="40px"
+			height="40px"
 			className={className}
 		/>
 	);
