@@ -6,17 +6,34 @@ import Register from "../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import Profile from "../pages/Profile";
 import { useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 const RouteManager = () => {
 	const [loginDetails, setLoginDetails] = useState(
 		JSON.parse(localStorage.getItem("login"))
 	);
 
+	// initial fetch for feed page
+	// lifted here not to re-render feed page on back
+	const { loading, error, data } = useFetch(
+		"http://localhost:1337/api/posts?sort[0]=id:desc&populate=deep,3"
+	);
+
 	return (
 		<HashRouter>
 			<Header loginDetails={loginDetails} />
 			<Routes>
-				<Route path="/" element={<Feed loginDetails={loginDetails} />} />
+				<Route
+					path="/"
+					element={
+						<Feed
+							loginDetails={loginDetails}
+							loading={loading}
+							error={error}
+							data={data}
+						/>
+					}
+				/>
 				<Route
 					path="/login"
 					element={
