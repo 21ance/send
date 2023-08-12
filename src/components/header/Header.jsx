@@ -11,7 +11,6 @@ const Header = (props) => {
 	useEffect(() => {
 		function closeDropdown(e) {
 			if (e.target.classList.contains("dropdown")) return;
-			console.log(e.target);
 			setDropdown(false);
 		}
 

@@ -16,7 +16,7 @@ const RouteManager = () => {
 	// initial fetch for feed page
 	// lifted here not to re-render feed page on back
 	const { loading, error, data } = useFetch(
-		"http://localhost:1337/api/posts?sort[0]=id:desc&populate=deep,3"
+		"http://localhost:1337/api/posts?populate=deep,3"
 	);
 
 	return (
@@ -56,7 +56,10 @@ const RouteManager = () => {
 					path="/posts/:postID"
 					element={<PostDetails loginDetails={loginDetails} />}
 				/>
-				<Route path="/profile/:userID" element={<Profile />} />
+				<Route
+					path="/profile/:userID"
+					element={<Profile loginDetails={loginDetails} />}
+				/>
 			</Routes>
 		</HashRouter>
 	);

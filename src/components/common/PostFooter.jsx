@@ -4,23 +4,40 @@ import { fetchRequest } from "../../helper/functions";
 import { useNavigate } from "react-router-dom";
 
 const PostFooter = (props) => {
-	const { commentLength, className, loginDetails, reactions, postID } =
-		props;
+	const {
+		commentLength,
+		className,
+		loginDetails,
+		reactions,
+		postID,
+		from = "default",
+	} = props;
 	const navigate = useNavigate();
 
-	const [votes, setVotes] = useState(
-		reactions.data.filter((reaction) => reaction.attributes.vote === true)
-			.length
-	);
+	const [votes, setVotes] = useState(() => {
+		if (from !== "default") {
+			return reactions.data.filter((reaction) => reaction.vote === true)
+				.length;
+		}
+		return reactions.data.filter(
+			(reaction) => reaction.attributes.vote === true
+		).length;
+	});
 	const [myVote, setMyVote] = useState(() => {
 		const vote = reactions.data.filter((reaction) => {
 			if (loginDetails === null) return;
+			if (from !== "default") return from === loginDetails.user.id;
 			return (
 				reaction.attributes.users_permissions_user.data.id ===
 				loginDetails.user.id
 			);
 		});
 		if (!vote[0]) return null;
+		if (from !== "default")
+			return {
+				vote: vote[0].vote,
+				id: vote[0].id,
+			};
 		return {
 			vote: vote[0].attributes.vote,
 			id: vote[0].id,
