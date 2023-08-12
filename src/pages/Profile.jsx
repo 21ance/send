@@ -17,9 +17,9 @@ const Profile = () => {
 	if (error) return <p>Error...</p>;
 
 	return (
-		<BoxContainer>
-			<AvatarPhoto src={data.avatarUrl} />
-			<h1>{data.username}</h1>
+		<BoxContainer className="flex flex-col items-center">
+			<AvatarPhoto src={data.avatarUrl} className="w-40" />
+			<h1 className="mt-2">@{data.username}</h1>
 			<small>{convertDateTime(data.createdAt)}</small>
 		</BoxContainer>
 	);

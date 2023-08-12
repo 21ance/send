@@ -2,29 +2,53 @@ import { Link } from "react-router-dom";
 import AvatarPhoto from "../common/AvatarPhoto";
 import { BiChevronDown } from "react-icons/bi";
 import HeaderDropdown from "./HeaderDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = (props) => {
 	const { loginDetails } = props;
 	const [dropdown, setDropdown] = useState(false);
 
+	useEffect(() => {
+		function closeDropdown(e) {
+			if (e.target.classList.contains("dropdown")) return;
+			console.log(e.target);
+			setDropdown(false);
+		}
+
+		document.addEventListener("click", (e) => closeDropdown(e));
+		return () =>
+			document.removeEventListener("click", () => closeDropdown());
+	}, []);
+
+	useEffect(() => {
+		function handleEsc(e) {
+			if (e.keyCode === 27) {
+				setDropdown(false);
+			}
+		}
+
+		document.addEventListener("keydown", handleEsc);
+		return () => {
+			document.removeEventListener("keydown", handleEsc);
+		};
+	}, []);
+
 	return (
-		<header className="flex justify-between px-4 py-2 bg-white w-full ">
+		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
 			<Link to={"/"}>
 				<img src="/png/icon.png" alt="send logo" />
 			</Link>
-
 			<div>
 				{loginDetails ? (
 					<div
-						className="flex items-center cursor-pointer relative "
+						className="flex items-center cursor-pointer relative dropdown"
 						onClick={() => setDropdown((prev) => !prev)}
 					>
 						<AvatarPhoto
 							src={loginDetails.user.avatarUrl}
-							className="w-[32px] mr-1"
+							className="w-[32px] mr-1 dropdown"
 						/>
-						<small className="hover:text-blue-500 flex items-center">
+						<small className="hover:text-blue-500 flex items-center dropdown">
 							{loginDetails.user.username}
 							<BiChevronDown />
 						</small>

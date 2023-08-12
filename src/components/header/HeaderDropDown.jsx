@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import BoxContainer from "../common/BoxContainer";
-import { AiOutlineProfile, AiOutlineLogout } from "react-icons/ai";
+import {
+	AiOutlineProfile,
+	AiOutlineLogout,
+	AiOutlineHome,
+} from "react-icons/ai";
 import { MdDarkMode } from "react-icons/md";
 import { reloadPage } from "../../helper/functions";
 
@@ -14,9 +18,10 @@ const HeaderDropdown = (props) => {
 
 	return (
 		<BoxContainer
-			className="absolute flex flex-col bottom-[-115px] right-[-0.5rem] whitespace-nowrap gap-2"
-			width="fit-content"
+			className="absolute flex flex-col bottom-[-150px] right-[-0.5rem] whitespace-nowrap gap-2"
+			width="w-[150px]"
 		>
+			<DropdownItem icon={<AiOutlineHome />} text="Home" link={`/`} />
 			<DropdownItem
 				icon={<AiOutlineProfile />}
 				text="Profile"

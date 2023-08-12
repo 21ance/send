@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import PostFooter from "../components/common/PostFooter";
 import TimePassed from "../components/common/TimePassed";
@@ -8,7 +8,6 @@ import AvatarPhoto from "../components/common/AvatarPhoto";
 
 const Feed = (props) => {
 	const { loginDetails, loading, error, data } = props;
-	const navigate = useNavigate();
 	const [userPosting, setUserPosting] = useState(false);
 
 	// to add loading component
@@ -25,11 +24,13 @@ const Feed = (props) => {
 
 			{data.data.map((post) => {
 				return (
-					<Link to={`/posts/${post.id}`}>
-						<BoxContainer
-							key={post.id}
-							className="my-2 px-7 py-6 flex flex-col gap-4 cursor-pointer hover:border-[#787C7E] duration-200"
-							handleClick={() => {}}
+					<BoxContainer
+						className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
+						key={post.id}
+					>
+						<NavLink
+							to={`/profile/${post.attributes.users_permissions_user.data.id}`}
+							className="hover:text-blue-500"
 						>
 							<header className="grid grid-cols-[auto,1fr] gap-x-2">
 								<AvatarPhoto
@@ -47,18 +48,24 @@ const Feed = (props) => {
 								</span>
 								<TimePassed currentTime={post.attributes.publishedAt} />
 							</header>
-							<h2 className="font-bold block">{post.attributes.title}</h2>
-							<p className="truncate max-w-[65ch] mt-[-1rem] text-sm">
-								{post.attributes.content}
-							</p>
-							<PostFooter
-								commentLength={post.attributes.comments.data.length}
-								loginDetails={loginDetails}
-								reactions={post.attributes.reactions}
-								postID={post.id}
-							/>
-						</BoxContainer>
-					</Link>
+						</NavLink>
+						<NavLink to={`/posts/${post.id}`}>
+							<div className="my-4 hover:text-blue-500">
+								<h2 className="font-bold block">
+									{post.attributes.title}
+								</h2>
+								<p className="truncate max-w-[65ch] text-sm">
+									{post.attributes.content}
+								</p>
+							</div>
+						</NavLink>
+						<PostFooter
+							commentLength={post.attributes.comments.data.length}
+							loginDetails={loginDetails}
+							reactions={post.attributes.reactions}
+							postID={post.id}
+						/>
+					</BoxContainer>
 				);
 			})}
 		</main>

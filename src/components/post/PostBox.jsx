@@ -21,7 +21,6 @@ const PostBox = (props) => {
 		}
 
 		document.addEventListener("keydown", handleEsc);
-
 		return () => {
 			document.removeEventListener("keydown", handleEsc);
 		};
