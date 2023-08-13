@@ -7,12 +7,13 @@ import PostBox from "../components/post/PostBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 
 const Feed = (props) => {
-	const { loginDetails, loading, error, data } = props;
+	const { loginDetails, fetchResult, postFooterData, setPostFooterData } =
+		props;
 	const [userPosting, setUserPosting] = useState(false);
 
 	// to add loading component
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error...</p>;
+	if (fetchResult.loading || !postFooterData) return <p>Loading...</p>;
+	if (fetchResult.error) return <p>Error...</p>;
 
 	return (
 		<main>
@@ -22,8 +23,8 @@ const Feed = (props) => {
 				loginDetails={loginDetails}
 			/>
 
-			{data.data
-				.map((post) => {
+			{fetchResult.data.data
+				.map((post, index) => {
 					return (
 						<BoxContainer
 							className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
@@ -61,10 +62,14 @@ const Feed = (props) => {
 								</div>
 							</NavLink>
 							<PostFooter
-								commentLength={post.attributes.comments.data.length}
+								postFooterData={postFooterData}
+								setPostFooterData={setPostFooterData}
 								loginDetails={loginDetails}
-								reactions={post.attributes.reactions}
-								postID={post.id}
+								footerData={{
+									postID: postFooterData[index].postID,
+									reactions: postFooterData[index].reactions,
+									commentsLength: postFooterData[index].commentsLength,
+								}}
 							/>
 						</BoxContainer>
 					);

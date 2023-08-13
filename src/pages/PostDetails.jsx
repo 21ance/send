@@ -8,7 +8,7 @@ import CommentBox from "../components/post/CommentBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 
 const PostDetails = (props) => {
-	const { loginDetails } = props;
+	const { loginDetails, postFooterData, setPostFooterData } = props;
 
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
@@ -29,7 +29,7 @@ const PostDetails = (props) => {
 	}, [data]);
 
 	// to add loading component
-	if (loading) return <p>Loading...</p>;
+	if (loading || !postFooterData) return <p>Loading...</p>;
 	if (error || !postContent) return <p>Error...</p>;
 
 	return (
@@ -45,11 +45,14 @@ const PostDetails = (props) => {
 				</h1>
 				<p>{postContent.post.attributes.content}</p>
 				<PostFooter
-					commentLength={postContent.comments.length}
-					className="mt-4"
+					postFooterData={postFooterData}
+					setPostFooterData={setPostFooterData}
 					loginDetails={loginDetails}
-					reactions={postContent.reactions}
-					postID={postContent.post.id}
+					footerData={{
+						postID: postContent.post.id,
+						reactions: postContent.reactions.data,
+						commentsLength: postContent.comments.length,
+					}}
 				/>
 			</BoxContainer>
 			<CommentBox

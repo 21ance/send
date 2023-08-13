@@ -1,28 +1,21 @@
-import {
-	NavLink,
-	useLocation,
-	useNavigate,
-	useParams,
-} from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import BoxContainer from "../components/common/BoxContainer";
 import useFetch from "../hooks/useFetch";
 import { convertDateTime } from "../helper/functions";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
-import { useState } from "react";
 
 const Profile = (props) => {
-	const { loginDetails } = props;
+	const { loginDetails, setPostFooterData, postFooterData } = props;
 
 	const { userID } = useParams();
 	const { loading, error, data } = useFetch(
-		`http://localhost:1337/api/users/${userID}?populate=deep,3`
+		`http://localhost:1337/api/users/${userID}?populate=deep,4`
 	);
 
-	// console.log(data);
 	// to add loading component
-	if (loading) return <p>Loading...</p>;
+	if (loading || !postFooterData) return <p>Loading...</p>;
 	if (error) return <p>Error...</p>;
 
 	return (
@@ -66,11 +59,15 @@ const Profile = (props) => {
 									</div>
 								</NavLink>
 								<PostFooter
-									commentLength={post.comments.length}
+									postFooterData={postFooterData}
+									setPostFooterData={setPostFooterData}
 									loginDetails={loginDetails}
-									reactions={{ data: post.reactions }}
-									postID={post.id}
-									from={post.users_permissions_user.id}
+									footerData={{
+										postID: post.id,
+										reactions: post.reactions,
+										commentsLength: post.comments.length,
+									}}
+									from={post}
 								/>
 							</BoxContainer>
 						);

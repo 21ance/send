@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import Profile from "../pages/Profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 const RouteManager = () => {
@@ -19,6 +19,23 @@ const RouteManager = () => {
 		"http://localhost:1337/api/posts?populate=deep,3"
 	);
 
+	const [postFooterData, setPostFooterData] = useState(null);
+	useEffect(() => {
+		if (!data) return;
+		setPostFooterData(() => {
+			let dataArray = [];
+			data.data.map((feed, index) => {
+				dataArray.push({
+					index: index,
+					commentsLength: feed.attributes.comments.data.length,
+					reactions: feed.attributes.reactions.data,
+					postID: feed.id,
+				});
+			});
+			return dataArray;
+		});
+	}, [data]);
+
 	return (
 		<HashRouter>
 			<Header loginDetails={loginDetails} />
@@ -27,10 +44,14 @@ const RouteManager = () => {
 					path="/"
 					element={
 						<Feed
+							fetchResult={{
+								loading: loading,
+								error: error,
+								data: data,
+							}}
 							loginDetails={loginDetails}
-							loading={loading}
-							error={error}
-							data={data}
+							postFooterData={postFooterData}
+							setPostFooterData={setPostFooterData}
 						/>
 					}
 				/>
@@ -54,11 +75,23 @@ const RouteManager = () => {
 				/>
 				<Route
 					path="/posts/:postID"
-					element={<PostDetails loginDetails={loginDetails} />}
+					element={
+						<PostDetails
+							loginDetails={loginDetails}
+							postFooterData={postFooterData}
+							setPostFooterData={setPostFooterData}
+						/>
+					}
 				/>
 				<Route
 					path="/profile/:userID"
-					element={<Profile loginDetails={loginDetails} />}
+					element={
+						<Profile
+							loginDetails={loginDetails}
+							setPostFooterData={setPostFooterData}
+							postFooterData={postFooterData}
+						/>
+					}
 				/>
 			</Routes>
 		</HashRouter>

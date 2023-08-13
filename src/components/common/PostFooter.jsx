@@ -1,32 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { fetchRequest } from "../../helper/functions";
 import { useNavigate } from "react-router-dom";
 
 const PostFooter = (props) => {
 	const {
-		commentLength,
 		className,
 		loginDetails,
-		reactions,
-		postID,
+		footerData,
+		postFooterData,
+		setPostFooterData,
 		from = "default",
 	} = props;
 	const navigate = useNavigate();
 
-	const [votes, setVotes] = useState(() => {
-		if (from !== "default") {
-			return reactions.data.filter((reaction) => reaction.vote === true)
-				.length;
-		}
-		return reactions.data.filter(
-			(reaction) => reaction.attributes.vote === true
-		).length;
-	});
 	const [myVote, setMyVote] = useState(() => {
-		const vote = reactions.data.filter((reaction) => {
+		const vote = footerData.reactions.filter((reaction) => {
 			if (loginDetails === null) return;
-			if (from !== "default") return from === loginDetails.user.id;
+			if (from !== "default")
+				return footerData.reactions.map(
+					(reaction) =>
+						reaction.users_permissions_user.id === loginDetails.user.id
+				);
+
 			return (
 				reaction.attributes.users_permissions_user.data.id ===
 				loginDetails.user.id
@@ -49,7 +45,7 @@ const PostFooter = (props) => {
 			data: {
 				vote: vote,
 				post: {
-					connect: [postID],
+					connect: [footerData.postID],
 				},
 				users_permissions_user: {
 					connect: [loginDetails.user.id],
@@ -58,7 +54,7 @@ const PostFooter = (props) => {
 		};
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			"http://localhost:1337/api/reactions",
+			"http://localhost:1337/api/reactions?populate=deep,3",
 			"POST",
 			data,
 			token,
@@ -71,6 +67,20 @@ const PostFooter = (props) => {
 				vote: data.data.attributes.vote,
 				id: data.data.id,
 			}));
+
+			setPostFooterData((prev) => {
+				const newState = prev.map((obj) => {
+					if (footerData.postID === obj.postID) {
+						return {
+							...obj,
+							reactions: [...obj.reactions, data.data],
+							test: "lance",
+						};
+					}
+					return obj;
+				});
+				return newState;
+			});
 		}
 	}
 
@@ -79,20 +89,46 @@ const PostFooter = (props) => {
 			data: {
 				vote: vote,
 				post: {
-					connect: [postID],
+					connect: [footerData.postID],
 				},
 				users_permissions_user: {
 					connect: [loginDetails.user.id],
 				},
 			},
 		};
+
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
 			`http://localhost:1337/api/reactions/${myVote.id}`,
 			"PUT",
 			data,
-			token
+			token,
+			updateState
 		);
+
+		function updateState(data) {
+			setPostFooterData((prev) => {
+				const newState = prev.map((obj) => {
+					return {
+						...obj,
+						reactions: obj.reactions.map((reaction) => {
+							if (reaction.id === data.data.id) {
+								return {
+									...reaction,
+									attributes: {
+										...reaction.attributes,
+										vote: data.data.attributes.vote,
+									},
+									test: "lance",
+								};
+							}
+							return reaction;
+						}),
+					};
+				});
+				return newState;
+			});
+		}
 	}
 
 	return (
@@ -106,17 +142,14 @@ const PostFooter = (props) => {
 					if (loginDetails === null) return navigate("/login");
 					if (myVote === null) {
 						setMyVote(true);
-						setVotes((prev) => prev + 1);
 						return createReaction(true);
 					}
 					if (myVote.vote === false) {
 						setMyVote((prev) => ({ ...prev, vote: true }));
-						setVotes((prev) => prev + 1);
 						return updateReaction(true);
 					}
 					if (myVote.vote === true) {
 						setMyVote((prev) => ({ ...prev, vote: false }));
-						setVotes((prev) => prev - 1);
 						return updateReaction(false);
 					}
 				}}
@@ -130,11 +163,21 @@ const PostFooter = (props) => {
 						<AiFillLike />
 					</span>
 				)}
-				<span className="text-base">{votes}</span>
+				<span className="text-base">
+					{postFooterData
+						.filter((data) => {
+							return footerData.postID === data.postID;
+						})
+						.map((obj) => {
+							return obj.reactions.filter((likes) => {
+								return likes.attributes.vote === true;
+							}).length;
+						})}
+				</span>
 			</button>
 			<div className="flex items-center gap-1">
 				<img src="./svg/comment.svg" alt="downvote" width="16px" />
-				<span>{commentLength}</span>
+				<span>{footerData.commentsLength}</span>
 			</div>
 		</footer>
 	);
