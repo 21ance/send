@@ -5,9 +5,13 @@ import { convertDateTime } from "../helper/functions";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
+import { useContext } from "react";
+import { Context } from "../router/RouteManager";
 
-const Profile = (props) => {
-	const { loginDetails, setPostFooterData, postFooterData } = props;
+const Profile = () => {
+	const { login, postFooter } = useContext(Context);
+	// const { loginDetails } = login;
+	const { postFooterData } = postFooter;
 
 	const { userID } = useParams();
 	const { loading, error, data } = useFetch(
@@ -53,15 +57,12 @@ const Profile = (props) => {
 								<NavLink to={`/posts/${post.id}`}>
 									<div className="my-4 hover:text-blue-500">
 										<h2 className="font-bold block">{post.title}</h2>
-										<p className="truncate max-w-[65ch] text-sm">
+										<p className="truncate max-w-full text-sm">
 											{post.content}
 										</p>
 									</div>
 								</NavLink>
 								<PostFooter
-									postFooterData={postFooterData}
-									setPostFooterData={setPostFooterData}
-									loginDetails={loginDetails}
 									footerData={{
 										postID: post.id,
 										reactions: post.reactions,

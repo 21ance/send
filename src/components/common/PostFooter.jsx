@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { fetchRequest } from "../../helper/functions";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../../router/RouteManager";
 
 const PostFooter = (props) => {
-	const {
-		className,
-		loginDetails,
-		footerData,
-		postFooterData,
-		setPostFooterData,
-		from = "default",
-	} = props;
+	const { login, postFooter } = useContext(Context);
+	const { loginDetails } = login;
+	const { postFooterData, setPostFooterData } = postFooter;
+	const { className, footerData, from = "default" } = props;
 	const navigate = useNavigate();
 
 	const [myVote, setMyVote] = useState(() => {

@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
 import { fetchRequest } from "../../helper/functions";
 import { Link } from "react-router-dom";
+import { Context } from "../../router/RouteManager";
 
 const CommentBox = (props) => {
-	const { loginDetails, postContent, setPostContent } = props;
+	const { login } = useContext(Context);
+	const { loginDetails } = login;
+	const { postContent, setPostContent } = props;
 	const [commentForm, setCommentForm] = useState();
 
 	function createComment() {

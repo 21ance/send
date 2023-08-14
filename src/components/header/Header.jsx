@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import AvatarPhoto from "../common/AvatarPhoto";
 import { BiChevronDown } from "react-icons/bi";
 import HeaderDropdown from "./HeaderDropDown";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../../router/RouteManager";
 
-const Header = (props) => {
-	const { loginDetails } = props;
+const Header = () => {
+	const { login } = useContext(Context);
+	const { loginDetails } = login;
+
 	const [dropdown, setDropdown] = useState(false);
 
 	useEffect(() => {

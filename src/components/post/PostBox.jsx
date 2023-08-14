@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchRequest } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
 import { Link } from "react-router-dom";
 import AvatarPhoto from "../common/AvatarPhoto";
+import { Context } from "../../router/RouteManager";
 
 const PostBox = (props) => {
-	const { userPosting, setUserPosting, loginDetails } = props;
+	const { login } = useContext(Context);
+	const { loginDetails } = login;
+	const { userPosting, setUserPosting } = props;
 	const [error, setError] = useState(false);
 	const [postForm, setPostForm] = useState({
 		title: "",

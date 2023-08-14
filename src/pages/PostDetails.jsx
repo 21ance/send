@@ -1,15 +1,17 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
 import PostFooter from "../components/common/PostFooter";
 import BoxContainer from "../components/common/BoxContainer";
 import CommentBox from "../components/post/CommentBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { Context } from "../router/RouteManager";
 
-const PostDetails = (props) => {
-	const { loginDetails, postFooterData, setPostFooterData } = props;
+const PostDetails = () => {
+	const { postFooter } = useContext(Context);
+	const { postFooterData } = postFooter;
 
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
@@ -49,9 +51,6 @@ const PostDetails = (props) => {
 					children={postContent.post.attributes.content}
 				/>
 				<PostFooter
-					postFooterData={postFooterData}
-					setPostFooterData={setPostFooterData}
-					loginDetails={loginDetails}
 					footerData={{
 						postID: postContent.post.id,
 						reactions: postContent.reactions.data,
@@ -60,7 +59,6 @@ const PostDetails = (props) => {
 				/>
 			</BoxContainer>
 			<CommentBox
-				loginDetails={loginDetails}
 				postContent={postContent}
 				setPostContent={setPostContent}
 			/>

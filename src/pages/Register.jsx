@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountElement from "../components/account/AccountElement";
 import {
 	FormInput,
@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { fetchRequest } from "../helper/functions";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 import AvatarPickerModal from "../components/modal/AvatarPickerModal";
+import { Context } from "../router/RouteManager";
 
-const Register = (props) => {
-	const { loginDetails, setLoginDetails } = props;
+const Register = () => {
+	const { login } = useContext(Context);
+	const { loginDetails, setLoginDetails } = login;
 	const [registerForm, setRegisterForm] = useState({
 		username: "",
 		email: "",
@@ -118,7 +120,7 @@ const Register = (props) => {
 	return (
 		<>
 			<AccountElement heading="Welcome! Create your account now!">
-				<form action="" className="flex flex-col gap-4">
+				<form className="flex flex-col gap-4">
 					<FormInput
 						type="text"
 						label="Username"
@@ -183,6 +185,7 @@ const Register = (props) => {
 						<span className="col-[1/-1]">Profile:</span>
 						<AvatarPhoto className="w-20" src={registerForm.avatar} />
 						<button
+							type="button"
 							className="w-fit h-fit bg-[#787C7E] hover:bg-[#787C7E]/80 text-white px-2 py-1 self-end"
 							onClick={() => setModal(true)}
 						>

@@ -1,14 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PostFooter from "../components/common/PostFooter";
 import TimePassed from "../components/common/TimePassed";
 import BoxContainer from "../components/common/BoxContainer";
 import PostBox from "../components/post/PostBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
+import { Context } from "../router/RouteManager";
 
 const Feed = (props) => {
-	const { loginDetails, fetchResult, postFooterData, setPostFooterData } =
-		props;
+	const { postFooter } = useContext(Context);
+	const { postFooterData } = postFooter;
+	const { fetchResult } = props;
 	const [userPosting, setUserPosting] = useState(false);
 
 	// to add loading component
@@ -17,11 +19,7 @@ const Feed = (props) => {
 
 	return (
 		<main>
-			<PostBox
-				userPosting={userPosting}
-				setUserPosting={setUserPosting}
-				loginDetails={loginDetails}
-			/>
+			<PostBox userPosting={userPosting} setUserPosting={setUserPosting} />
 
 			{fetchResult.data.data
 				.map((post, index) => {
@@ -62,9 +60,6 @@ const Feed = (props) => {
 								</div>
 							</NavLink>
 							<PostFooter
-								postFooterData={postFooterData}
-								setPostFooterData={setPostFooterData}
-								loginDetails={loginDetails}
 								footerData={{
 									postID: postFooterData[index].postID,
 									reactions: postFooterData[index].reactions,

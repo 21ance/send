@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountElement from "../components/account/AccountElement";
 import { FormInput, FormSubmit } from "../components/account/FormElements";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { fetchRequest } from "../helper/functions";
+import { Context } from "../router/RouteManager";
 
-const Login = (props) => {
-	const { loginDetails, setLoginDetails } = props;
+const Login = () => {
+	const { login } = useContext(Context);
+	const { loginDetails, setLoginDetails } = login;
+
 	const [loginForm, setLoginForm] = useState({
 		username: "",
 		password: "",
@@ -58,7 +61,7 @@ const Login = (props) => {
 
 	return (
 		<AccountElement heading="Welcome back! Glad to see you again!">
-			<form action="" className="flex flex-col gap-4">
+			<form className="flex flex-col gap-4">
 				<FormInput
 					type="text"
 					label="Username"
