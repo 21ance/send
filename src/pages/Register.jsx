@@ -121,6 +121,10 @@ const Register = () => {
 		}
 	}
 
+	function changePhoto(src) {
+		setRegisterForm((prev) => ({ ...prev, avatar: src }));
+	}
+
 	return (
 		<>
 			<AccountElement heading="Welcome! Create your account now!">
@@ -211,7 +215,9 @@ const Register = () => {
 			{modal && (
 				<AvatarPickerModal
 					setModal={setModal}
-					setPhoto={setRegisterForm}
+					handleClick={changePhoto}
+					handleSave={() => setModal(false)}
+					handleCancel={() => setModal(false)}
 				/>
 			)}
 		</>

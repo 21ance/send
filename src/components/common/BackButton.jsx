@@ -2,7 +2,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const BackButton = (props) => {
-	const { className } = props;
+	const { className = "" } = props;
 	const navigate = useNavigate();
 
 	return (

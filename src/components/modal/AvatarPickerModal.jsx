@@ -2,49 +2,34 @@ import AvatarPhoto from "../common/AvatarPhoto";
 import Modal from "./Modal";
 
 const AvatarPickerModal = (props) => {
-	const { setModal, setPhoto } = props;
+	const { setModal, handleClick, handleSave, handleCancel } = props;
+
+	const avatarList = [
+		"/svg/avatar/maleOne.svg",
+		"/svg/avatar/maleTwo.svg",
+		"/svg/avatar/maleThree.svg",
+		"/svg/avatar/femaleOne.svg",
+		"/svg/avatar/femaleTwo.svg",
+		"/svg/avatar/femaleThree.svg",
+	];
 
 	return (
 		<Modal
 			width="fit-content"
 			setModal={setModal}
-			handleSave={() => setModal(false)}
+			handleSave={handleSave}
+			handleCancel={handleCancel}
 		>
 			<section className="flex gap-4 flex-wrap mb-4">
-				<ProfileOption src="/svg/avatar/maleOne.svg" setPhoto={setPhoto} />
-				<ProfileOption src="/svg/avatar/maleTwo.svg" setPhoto={setPhoto} />
-				<ProfileOption
-					src="/svg/avatar/maleThree.svg"
-					setPhoto={setPhoto}
-				/>
-				<ProfileOption
-					src="/svg/avatar/femaleOne.svg"
-					setPhoto={setPhoto}
-				/>
-				<ProfileOption
-					src="/svg/avatar/femaleTwo.svg"
-					setPhoto={setPhoto}
-				/>
-				<ProfileOption
-					src="/svg/avatar/femaleThree.svg"
-					setPhoto={setPhoto}
-				/>
+				{avatarList.map((avatar, index) => {
+					return (
+						<button onClick={() => handleClick(avatar)} key={index}>
+							<AvatarPhoto src={avatar} className="w-28" />
+						</button>
+					);
+				})}
 			</section>
 		</Modal>
-	);
-};
-
-const ProfileOption = (props) => {
-	const { src, setPhoto } = props;
-
-	return (
-		<button
-			onClick={() => {
-				setPhoto((prev) => ({ ...prev, avatar: src }));
-			}}
-		>
-			<AvatarPhoto src={src} className="w-28" />
-		</button>
 	);
 };
 

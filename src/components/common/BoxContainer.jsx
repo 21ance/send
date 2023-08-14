@@ -1,6 +1,6 @@
 const BoxContainer = (props) => {
 	const {
-		className,
+		className = "",
 		children,
 		handleClick,
 		width = "md:w-[700px]",

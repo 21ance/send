@@ -20,7 +20,7 @@ const HeaderDropdown = (props) => {
 
 	return (
 		<BoxContainer
-			className="absolute flex flex-col bottom-[-150px] right-[-0.5rem] whitespace-nowrap gap-2"
+			className="absolute flex flex-col bottom-[-150px] right-[-0.5rem] whitespace-nowrap gap-2 z-10"
 			width="w-[150px]"
 		>
 			<DropdownItem icon={<AiOutlineHome />} text="Home" link={`/`} />

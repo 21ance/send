@@ -25,21 +25,19 @@ const Feed = (props) => {
 				setFeedData={setFeedData}
 				feedData={feedData}
 			/>
-			{feedData
-				.map((post, index) => {
-					return (
-						<PostDetails
-							key={post.id}
-							post={post}
-							footerData={{
-								postID: postFooterData[index].postID,
-								reactions: postFooterData[index].reactions,
-								commentsLength: postFooterData[index].commentsLength,
-							}}
-						/>
-					);
-				})
-				.reverse()}
+			{feedData.map((post, index) => {
+				return (
+					<PostDetails
+						key={post.id}
+						post={post}
+						footerData={{
+							postID: postFooterData[index].postID,
+							reactions: postFooterData[index].reactions,
+							commentsLength: postFooterData[index].commentsLength,
+						}}
+					/>
+				);
+			})}
 		</main>
 	);
 };

@@ -5,7 +5,7 @@ import PostFooter from "../common/PostFooter";
 import TimePassed from "../common/TimePassed";
 
 const PostDetails = (props) => {
-	const { post, footerData, from, width } = props;
+	const { post, footerData, from, width, profileAvatar } = props;
 
 	return (
 		<BoxContainer
@@ -31,7 +31,7 @@ const PostDetails = (props) => {
 					<AvatarPhoto
 						src={
 							from === "profile"
-								? post.users_permissions_user.avatarUrl
+								? profileAvatar
 								: post.attributes.users_permissions_user.data.attributes
 										.avatarUrl
 						}

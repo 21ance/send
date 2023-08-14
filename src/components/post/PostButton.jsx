@@ -1,5 +1,5 @@
 const PostButton = (props) => {
-	const { text, className, onClick, type = "button" } = props;
+	const { text, className = "", onClick, type = "button" } = props;
 
 	return (
 		<button

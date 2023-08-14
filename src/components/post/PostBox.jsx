@@ -59,7 +59,7 @@ const PostBox = (props) => {
 		function appendData(data) {
 			const newPost = data.data;
 			setFeedData((prev) => {
-				return [...prev, newPost];
+				return [newPost, ...prev];
 			});
 
 			setPostFooterData((prev) => {
