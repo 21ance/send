@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchRequest, reloadPage } from "../../helper/functions";
+import { fetchRequest } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
 import { Link } from "react-router-dom";
@@ -44,8 +44,17 @@ const PostBox = (props) => {
 			},
 		};
 		const token = `Bearer ${loginDetails.jwt}`;
-		fetchRequest("http://localhost:1337/api/posts", "POST", data, token);
-		reloadPage();
+		fetchRequest(
+			"http://localhost:1337/api/posts?populate=deep,3",
+			"POST",
+			data,
+			token
+		);
+		setPostForm({
+			title: "",
+			content: "",
+		});
+		setUserPosting(false);
 	}
 
 	return (

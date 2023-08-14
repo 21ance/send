@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { fetchRequest } from "../../helper/functions";
 import { useNavigate } from "react-router-dom";
@@ -18,11 +18,7 @@ const PostFooter = (props) => {
 		const vote = footerData.reactions.filter((reaction) => {
 			if (loginDetails === null) return;
 			if (from !== "default")
-				return footerData.reactions.map(
-					(reaction) =>
-						reaction.users_permissions_user.id === loginDetails.user.id
-				);
-
+				return reaction.users_permissions_user.id === loginDetails.user.id;
 			return (
 				reaction.attributes.users_permissions_user.data.id ===
 				loginDetails.user.id

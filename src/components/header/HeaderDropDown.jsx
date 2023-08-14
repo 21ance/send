@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BoxContainer from "../common/BoxContainer";
 import {
 	AiOutlineProfile,
@@ -6,14 +6,16 @@ import {
 	AiOutlineHome,
 } from "react-icons/ai";
 import { MdDarkMode } from "react-icons/md";
-import { reloadPage } from "../../helper/functions";
 
 const HeaderDropdown = (props) => {
 	const { loginDetails } = props;
 
+	const navigate = useNavigate();
+
 	function logOut() {
 		localStorage.removeItem("login");
-		reloadPage();
+		navigate("/");
+		navigate(0);
 	}
 
 	return (

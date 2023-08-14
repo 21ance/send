@@ -77,8 +77,4 @@ const fetchRequest = async (
 	}
 };
 
-function reloadPage() {
-	window.location.reload(true);
-}
-
-export { convertDateTime, calculateTimePassed, fetchRequest, reloadPage };
+export { convertDateTime, calculateTimePassed, fetchRequest };
