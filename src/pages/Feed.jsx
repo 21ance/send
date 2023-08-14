@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PostBox from "../components/post/PostBox";
 import { Context } from "../router/RouteManager";
 import PostDetails from "../components/post/PostDetails";
@@ -8,6 +8,10 @@ const Feed = (props) => {
 	const { postFooterData } = postFooter;
 	const { feedData, setFeedData, error, loading } = props;
 	const [userPosting, setUserPosting] = useState(false);
+
+	useEffect(() => {
+		document.title = "Send | Feed";
+	}, []);
 
 	// to add loading component
 	if (loading || !postFooterData) return <p>Loading...</p>;

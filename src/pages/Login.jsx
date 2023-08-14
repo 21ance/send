@@ -18,6 +18,10 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		document.title = "Send | Login";
+	}, []);
+
+	useEffect(() => {
 		if (loginDetails !== null) {
 			navigate("/");
 		}

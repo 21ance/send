@@ -3,7 +3,7 @@ import BoxContainer from "../components/common/BoxContainer";
 import useFetch from "../hooks/useFetch";
 import { convertDateTime } from "../helper/functions";
 import AvatarPhoto from "../components/common/AvatarPhoto";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../router/RouteManager";
 import PostDetails from "../components/post/PostDetails";
 
@@ -16,6 +16,10 @@ const Profile = () => {
 	const { loading, error, data } = useFetch(
 		`http://localhost:1337/api/users/${userID}?populate=deep,4`
 	);
+
+	useEffect(() => {
+		document.title = "Send | Profile";
+	}, []);
 
 	// to add loading component
 	if (loading || !postFooterData) return <p>Loading...</p>;

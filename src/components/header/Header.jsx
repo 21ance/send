@@ -38,7 +38,7 @@ const Header = () => {
 	return (
 		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
 			<Link to={"/"}>
-				<img src="/png/icon.png" alt="send logo" />
+				<img src="/icon.png" alt="send logo" />
 			</Link>
 			<div>
 				{loginDetails ? (

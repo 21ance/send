@@ -26,6 +26,10 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		document.title = "Send | Register";
+	}, []);
+
+	useEffect(() => {
 		if (loginDetails !== null) {
 			navigate("/");
 		}

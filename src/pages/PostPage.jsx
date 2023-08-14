@@ -20,6 +20,10 @@ const PostPage = () => {
 	const [postContent, setPostContent] = useState(false);
 
 	useEffect(() => {
+		document.title = "Send | User Post";
+	}, []);
+
+	useEffect(() => {
 		if (!data) return;
 		if (data.data === null) return setPostContent(false);
 
