@@ -10,18 +10,22 @@ import { Context } from "../router/RouteManager";
 const Feed = (props) => {
 	const { postFooter } = useContext(Context);
 	const { postFooterData } = postFooter;
-	const { fetchResult } = props;
+	const { feedData, setFeedData, error, loading } = props;
 	const [userPosting, setUserPosting] = useState(false);
 
 	// to add loading component
-	if (fetchResult.loading || !postFooterData) return <p>Loading...</p>;
-	if (fetchResult.error) return <p>Error...</p>;
+	if (loading || !postFooterData) return <p>Loading...</p>;
+	if (error) return <p>Error...</p>;
 
 	return (
 		<main>
-			<PostBox userPosting={userPosting} setUserPosting={setUserPosting} />
-
-			{fetchResult.data.data
+			<PostBox
+				userPosting={userPosting}
+				setUserPosting={setUserPosting}
+				setFeedData={setFeedData}
+				feedData={feedData}
+			/>
+			{feedData
 				.map((post, index) => {
 					return (
 						<BoxContainer

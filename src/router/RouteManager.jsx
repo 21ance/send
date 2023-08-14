@@ -19,15 +19,15 @@ const RouteManager = () => {
 	const { loading, error, data } = useFetch(
 		"http://localhost:1337/api/posts?populate=deep,3"
 	);
+	const [feedData, setFeedData] = useState(null);
 	const [postFooterData, setPostFooterData] = useState(null);
 
 	useEffect(() => {
 		if (!data) return;
 		setPostFooterData(() => {
 			let dataArray = [];
-			data.data.map((feed, index) => {
+			data.data.map((feed) => {
 				dataArray.push({
-					index: index,
 					commentsLength: feed.attributes.comments.data.length,
 					reactions: feed.attributes.reactions.data,
 					postID: feed.id,
@@ -35,6 +35,7 @@ const RouteManager = () => {
 			});
 			return dataArray;
 		});
+		setFeedData(data.data);
 	}, [data]);
 
 	return (
@@ -51,11 +52,10 @@ const RouteManager = () => {
 						path="/"
 						element={
 							<Feed
-								fetchResult={{
-									loading: loading,
-									error: error,
-									data: data,
-								}}
+								feedData={feedData}
+								setFeedData={setFeedData}
+								error={error}
+								loading={loading}
 							/>
 						}
 					/>

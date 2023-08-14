@@ -7,9 +7,10 @@ import AvatarPhoto from "../common/AvatarPhoto";
 import { Context } from "../../router/RouteManager";
 
 const PostBox = (props) => {
-	const { login } = useContext(Context);
+	const { login, postFooter } = useContext(Context);
+	const { setPostFooterData } = postFooter;
 	const { loginDetails } = login;
-	const { userPosting, setUserPosting } = props;
+	const { userPosting, setUserPosting, setFeedData } = props;
 	const [error, setError] = useState(false);
 	const [postForm, setPostForm] = useState({
 		title: "",
@@ -51,8 +52,28 @@ const PostBox = (props) => {
 			"http://localhost:1337/api/posts?populate=deep,3",
 			"POST",
 			data,
-			token
+			token,
+			appendData
 		);
+
+		function appendData(data) {
+			const newPost = data.data;
+			setFeedData((prev) => {
+				return [...prev, newPost];
+			});
+
+			setPostFooterData((prev) => {
+				return [
+					...prev,
+					{
+						commentsLength: 0,
+						reactions: newPost.attributes.reactions.data,
+						postID: newPost.id,
+					},
+				];
+			});
+		}
+
 		setPostForm({
 			title: "",
 			content: "",
