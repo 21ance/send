@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useContext, useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
@@ -8,6 +8,7 @@ import CommentBox from "../components/post/CommentBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Context } from "../router/RouteManager";
+import BackButton from "../components/common/BackButton";
 
 const PostPage = () => {
 	const { postFooter } = useContext(Context);
@@ -42,10 +43,11 @@ const PostPage = () => {
 	return (
 		<>
 			<BoxContainer className="my-2">
+				<BackButton />
 				<TimePassed
 					text={`Posted by ${postContent.OP.attributes.username}`}
 					currentTime={postContent.post.attributes.publishedAt}
-					className="text-[#787C7E]"
+					className="text-[#787C7E] block"
 				/>
 				<h1 className="font-bold text-lg">
 					{postContent.post.attributes.title}
@@ -72,21 +74,23 @@ const PostPage = () => {
 				postContent.comments
 					.map((comment) => {
 						return (
-							<BoxContainer
-								key={comment.id}
-								className="my-1 grid grid-cols-[auto,1fr] gap-x-2 gap-y-4"
-							>
-								<AvatarPhoto
-									src={comment.attributes.user.data.attributes.avatarUrl}
-								/>
-								<span className="flex items-center gap-2">
-									{`${comment.attributes.user.data.attributes.username} `}
+							<BoxContainer key={comment.id} className="my-1">
+								<Link
+									to={`/profile/${comment.attributes.user.data.id}`}
+									className="hover:text-blue-500 flex gap-2 items-center"
+								>
+									<AvatarPhoto
+										src={comment.attributes.user.data.attributes.avatarUrl}
+									/>
+									<span className="flex items-center gap-2">
+										{`${comment.attributes.user.data.attributes.username} `}
+									</span>
 									<TimePassed
 										currentTime={comment.attributes.publishedAt}
 									/>
-								</span>
+								</Link>
 								<ReactMarkdown
-									className="max-w-full text-sm whitespace-pre-wrap col-[1/-1]"
+									className="max-w-full text-sm whitespace-pre-wrap col-[1/-1] mt-2"
 									children={comment.attributes.content}
 								/>
 							</BoxContainer>

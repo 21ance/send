@@ -6,6 +6,7 @@ import AvatarPhoto from "../components/common/AvatarPhoto";
 import { useContext, useEffect } from "react";
 import { Context } from "../router/RouteManager";
 import PostDetails from "../components/post/PostDetails";
+import BackButton from "../components/common/BackButton";
 
 const Profile = () => {
 	const { login, postFooter } = useContext(Context);
@@ -28,6 +29,7 @@ const Profile = () => {
 	return (
 		<>
 			<BoxContainer className="flex flex-col items-center">
+				<BackButton className="self-start" />
 				<AvatarPhoto src={data.avatarUrl} className="w-40" />
 				<h1 className="mt-2">@{data.username}</h1>
 				<small>{convertDateTime(data.createdAt)}</small>

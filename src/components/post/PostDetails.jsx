@@ -15,10 +15,17 @@ const PostDetails = (props) => {
 			<NavLink
 				to={
 					from === "profile"
-						? `/profile/${post.users_permissions_user.id}`
+						? ``
 						: `/profile/${post.attributes.users_permissions_user.data.id}`
 				}
-				className="hover:text-blue-500"
+				className={
+					from == "profile" ? "cursor-default" : "hover:text-blue-500"
+				}
+				onClick={(e) => {
+					if (from === "profile") {
+						e.preventDefault();
+					}
+				}}
 			>
 				<header className="grid grid-cols-[auto,1fr] gap-x-2">
 					<AvatarPhoto
