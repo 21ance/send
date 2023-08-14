@@ -56,7 +56,7 @@ const Feed = (props) => {
 									<h2 className="font-bold block">
 										{post.attributes.title}
 									</h2>
-									<p className="truncate max-w-[65ch] text-sm">
+									<p className="truncate max-w-full text-sm">
 										{post.attributes.content}
 									</p>
 								</div>

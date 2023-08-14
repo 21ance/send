@@ -6,6 +6,7 @@ import PostFooter from "../components/common/PostFooter";
 import BoxContainer from "../components/common/BoxContainer";
 import CommentBox from "../components/post/CommentBox";
 import AvatarPhoto from "../components/common/AvatarPhoto";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const PostDetails = (props) => {
 	const { loginDetails, postFooterData, setPostFooterData } = props;
@@ -43,7 +44,10 @@ const PostDetails = (props) => {
 				<h1 className="font-bold text-lg">
 					{postContent.post.attributes.title}
 				</h1>
-				<p>{postContent.post.attributes.content}</p>
+				<ReactMarkdown
+					className="max-w-full text-sm whitespace-pre-wrap"
+					children={postContent.post.attributes.content}
+				/>
 				<PostFooter
 					postFooterData={postFooterData}
 					setPostFooterData={setPostFooterData}
@@ -68,7 +72,7 @@ const PostDetails = (props) => {
 						return (
 							<BoxContainer
 								key={comment.id}
-								className="my-1 grid grid-cols-[auto,1fr] gap-1"
+								className="my-1 grid grid-cols-[auto,1fr] gap-x-2 gap-y-4"
 							>
 								<AvatarPhoto
 									src={comment.attributes.user.data.attributes.avatarUrl}
@@ -79,7 +83,10 @@ const PostDetails = (props) => {
 										currentTime={comment.attributes.publishedAt}
 									/>
 								</span>
-								<p className="col-[1/-1]">{comment.attributes.content}</p>
+								<ReactMarkdown
+									className="max-w-full text-sm whitespace-pre-wrap col-[1/-1]"
+									children={comment.attributes.content}
+								/>
 							</BoxContainer>
 						);
 					})
