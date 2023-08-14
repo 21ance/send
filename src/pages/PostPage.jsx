@@ -9,7 +9,7 @@ import AvatarPhoto from "../components/common/AvatarPhoto";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Context } from "../router/RouteManager";
 
-const PostDetails = () => {
+const PostPage = () => {
 	const { postFooter } = useContext(Context);
 	const { postFooterData } = postFooter;
 
@@ -47,7 +47,7 @@ const PostDetails = () => {
 					{postContent.post.attributes.title}
 				</h1>
 				<ReactMarkdown
-					className="max-w-full text-sm whitespace-pre-wrap"
+					className="max-w-full text-sm whitespace-pre-wrap mb-2"
 					children={postContent.post.attributes.content}
 				/>
 				<PostFooter
@@ -94,4 +94,4 @@ const PostDetails = () => {
 	);
 };
 
-export default PostDetails;
+export default PostPage;

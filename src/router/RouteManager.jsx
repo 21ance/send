@@ -3,7 +3,7 @@ import Header from "../components/header/Header";
 import Feed from "../pages/Feed";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import PostDetails from "../pages/PostDetails";
+import PostPage from "../pages/PostPage";
 import Profile from "../pages/Profile";
 import { useEffect, useState, createContext } from "react";
 import useFetch from "../hooks/useFetch";
@@ -61,7 +61,7 @@ const RouteManager = () => {
 					/>
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
-					<Route path="/posts/:postID" element={<PostDetails />} />
+					<Route path="/posts/:postID" element={<PostPage />} />
 					<Route path="/profile/:userID" element={<Profile />} />
 				</Routes>
 			</HashRouter>
