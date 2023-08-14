@@ -3,10 +3,13 @@ import BoxContainer from "../common/BoxContainer";
 import AvatarPhoto from "../common/AvatarPhoto";
 import PostFooter from "../common/PostFooter";
 import TimePassed from "../common/TimePassed";
+import { useContext } from "react";
+import { Context } from "../../router/RouteManager";
 
 const PostDetails = (props) => {
 	const { post, footerData, from, width, profileAvatar } = props;
-
+	const { login } = useContext(Context);
+	const { loginDetails } = login;
 	return (
 		<BoxContainer
 			className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
@@ -32,6 +35,9 @@ const PostDetails = (props) => {
 						src={
 							from === "profile"
 								? profileAvatar
+								: post.attributes.users_permissions_user.data.id ===
+								  loginDetails.user.id
+								? loginDetails.user.avatarUrl
 								: post.attributes.users_permissions_user.data.attributes
 										.avatarUrl
 						}
