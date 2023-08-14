@@ -2,13 +2,16 @@ import { useContext, useState } from "react";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
 import { fetchRequest } from "../../helper/functions";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../../router/RouteManager";
 
 const CommentBox = (props) => {
-	const { login } = useContext(Context);
-	const { loginDetails } = login;
 	const { postContent, setPostContent } = props;
+	const { login, postFooter } = useContext(Context);
+	const { loginDetails } = login;
+	const { setPostFooterData } = postFooter;
+	const params = useParams();
+
 	const [commentForm, setCommentForm] = useState();
 
 	function createComment() {
@@ -51,6 +54,16 @@ const CommentBox = (props) => {
 				comments: [...prev.comments, newComment],
 			}));
 		}
+
+		setPostFooterData((prev) => {
+			const newState = prev.map((post) => {
+				if (post.postID === Number(params.postID)) {
+					return { ...post, commentsLength: post.commentsLength + 1 };
+				}
+				return post;
+			});
+			return newState;
+		});
 
 		setCommentForm("");
 	}
