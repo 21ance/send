@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../router/RouteManager";
 
-const EditPostModal = (props) => {
+const EditPostModal = () => {
 	const { modal } = useContext(Context);
 	const { modalConfig, setModalConfig } = modal;
+
 	return (
 		<div>
 			<span>Title:</span>

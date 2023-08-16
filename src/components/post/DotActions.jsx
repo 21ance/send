@@ -3,7 +3,15 @@ import DotDropdown from "./DotDropdown";
 import { useEffect } from "react";
 
 const DotActions = (props) => {
-	const { dotDropdown, setDotDropdown, post, from, className } = props;
+	const {
+		dotDropdown,
+		setDotDropdown,
+		post,
+		from,
+		className,
+		postContent,
+		setPostContent,
+	} = props;
 
 	useEffect(() => {
 		function closeDropdown(e) {
@@ -38,7 +46,14 @@ const DotActions = (props) => {
 			>
 				<BsThreeDotsVertical className="dropdown" />
 			</span>
-			{dotDropdown && <DotDropdown post={post} from={from} />}
+			{dotDropdown && (
+				<DotDropdown
+					post={post}
+					from={from}
+					setPostContent={setPostContent}
+					postContent={postContent}
+				/>
+			)}
 		</div>
 	);
 };

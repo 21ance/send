@@ -49,6 +49,8 @@ const PostPage = () => {
 					setDotDropdown={setDotDropdown}
 					post={data.data}
 					className="right-[10px]"
+					postContent={postContent}
+					setPostContent={setPostContent}
 				/>
 				<BackButton />
 				<TimePassed

@@ -7,14 +7,15 @@ import EditPostModal from "../modal/EditPostModal";
 import { useNavigate } from "react-router-dom";
 
 const DotDropdown = (props) => {
-	const { post, from } = props;
+	const { post, from, setPostContent, postContent } = props;
 	const { login, modal, feed } = useContext(Context);
 	const { loginDetails } = login;
-	const { setModalConfig } = modal;
+	const { modalConfig, setModalConfig } = modal;
 	const { setFeedData } = feed;
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		if (postContent && modalConfig.form) return;
 		if (from === "profile")
 			return setModalConfig((prev) => ({
 				...prev,
@@ -85,10 +86,24 @@ const DotDropdown = (props) => {
 					});
 					return newState;
 				});
+				if (postContent) {
+					setPostContent((prev) => {
+						const newState = {
+							...prev,
+							post: {
+								...prev.post,
+								attributes: {
+									...prev.post.attributes,
+									title: data.data.attributes.title,
+									content: data.data.attributes.content,
+								},
+							},
+						};
+						return newState;
+					});
+				}
+				if (from === "profile") navigate(0);
 			}
-
-			if (from === "profile") navigate(0);
-
 			return { ...prev, active: false };
 		});
 	}
@@ -121,7 +136,7 @@ const DotDropdown = (props) => {
 							setModalConfig((prev) => ({
 								...prev,
 								active: true,
-								children: <EditPostModal post={post} />,
+								children: <EditPostModal />,
 								handleSave: updatePost,
 							}))
 						}
