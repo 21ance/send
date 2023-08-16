@@ -28,7 +28,10 @@ const DotActions = (props) => {
 	}, []);
 
 	return (
-		<div className={`${className} absolute`}>
+		<div
+			className={`${className} absolute`}
+			onClick={(e) => e.preventDefault()}
+		>
 			<span
 				className="hover:text-blue-500 cursor-pointer"
 				onClick={() => setDotDropdown((prev) => !prev)}

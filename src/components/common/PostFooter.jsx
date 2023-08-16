@@ -126,8 +126,8 @@ const PostFooter = (props) => {
 
 	return (
 		<footer
-			className={`flex items-center relative gap-4 ${className}`}
-			onClick={(e) => e.stopPropagation()}
+			className={`flex items-center relative gap-4 w-fit ${className}`}
+			onClick={(e) => e.preventDefault()}
 		>
 			<button
 				className="text-xl flex items-center gap-1"
