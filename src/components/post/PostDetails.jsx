@@ -46,6 +46,7 @@ const PostDetails = (props) => {
 					setDotDropdown={setDotDropdown}
 					post={post}
 					loginDetails={loginDetails}
+					from={from}
 				/>
 				<NavLink
 					to={

@@ -9,7 +9,7 @@ const Modal = (props) => {
 		handleCancel,
 		className,
 		submitText = "Save",
-		submitColor = "bg-[#787C7E] hover:bg-[#787C7E]/80",
+		submitColor = "bg-blue-500 hover:bg-blue-500/80",
 		cancelText = "Cancel",
 	} = props;
 
@@ -40,13 +40,13 @@ const Modal = (props) => {
 					<ModalButton
 						text={cancelText}
 						handleClick={() => handleCancel()}
-						className={submitColor}
+						className="bg-[#787C7E] hover:bg-[#787C7E]/80"
 					/>
 					<ModalButton
 						type="submit"
 						text={submitText}
 						handleClick={() => handleSave()}
-						className="bg-blue-500 hover:bg-blue-500/80"
+						className={submitColor}
 					/>
 				</footer>
 			</BoxContainer>
