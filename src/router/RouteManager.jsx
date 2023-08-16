@@ -46,6 +46,7 @@ const RouteManager = () => {
 				login: { loginDetails, setLoginDetails },
 				postFooter: { postFooterData, setPostFooterData },
 				modal: { modalConfig, setModalConfig },
+				feed: { feedData, setFeedData },
 			}}
 		>
 			<HashRouter>
@@ -53,14 +54,7 @@ const RouteManager = () => {
 				<Routes>
 					<Route
 						path="/"
-						element={
-							<Feed
-								feedData={feedData}
-								setFeedData={setFeedData}
-								error={error}
-								loading={loading}
-							/>
-						}
+						element={<Feed error={error} loading={loading} />}
 					/>
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />

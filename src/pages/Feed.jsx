@@ -4,9 +4,10 @@ import { Context } from "../router/RouteManager";
 import PostDetails from "../components/post/PostDetails";
 
 const Feed = (props) => {
-	const { postFooter } = useContext(Context);
+	const { postFooter, feed } = useContext(Context);
 	const { postFooterData } = postFooter;
-	const { feedData, setFeedData, error, loading } = props;
+	const { feedData, setFeedData } = feed;
+	const { error, loading } = props;
 	const [userPosting, setUserPosting] = useState(false);
 
 	useEffect(() => {
@@ -31,6 +32,10 @@ const Feed = (props) => {
 						key={post.id}
 						post={post}
 						footerData={{
+							// postID: post.id,
+							// reactions: post.attributes.reactions.data,
+							// commentsLength: post.attributes.comments.data.length,
+							// to check
 							postID: postFooterData[index].postID,
 							reactions: postFooterData[index].reactions,
 							commentsLength: postFooterData[index].commentsLength,
