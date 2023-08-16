@@ -36,7 +36,7 @@ const Header = () => {
 	}, []);
 
 	return (
-		<header className="flex justify-between items-center px-4 py-2 bg-white w-full ">
+		<header className="flex justify-between items-center px-4 py-2 bg-white w-full sticky top-0 z-10">
 			<Link to={"/"}>
 				<img src="/icon.png" alt="send logo" />
 			</Link>

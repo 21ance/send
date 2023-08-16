@@ -3,46 +3,92 @@ import BoxContainer from "../common/BoxContainer";
 import AvatarPhoto from "../common/AvatarPhoto";
 import PostFooter from "../common/PostFooter";
 import TimePassed from "../common/TimePassed";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../router/RouteManager";
+import DotActions from "./DotActions";
 
 const PostDetails = (props) => {
 	const { post, footerData, from, width, profileAvatar } = props;
 	const { login } = useContext(Context);
 	const { loginDetails } = login;
+	const [dotDropdown, setDotDropdown] = useState(false);
+
+	useEffect(() => {
+		function closeDropdown(e) {
+			if (e.target.classList.contains("dropdown")) return;
+			setDotDropdown(false);
+		}
+		document.addEventListener("click", (e) => closeDropdown(e));
+		return () =>
+			document.removeEventListener("click", () => closeDropdown());
+	}, []);
+
+	useEffect(() => {
+		function handleEsc(e) {
+			if (e.keyCode === 27) {
+				setDotDropdown(false);
+			}
+		}
+		document.addEventListener("keydown", handleEsc);
+		return () => {
+			document.removeEventListener("keydown", handleEsc);
+		};
+	}, []);
+
 	return (
 		<BoxContainer
 			className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
 			width={width}
 		>
-			<NavLink
-				to={
-					from === "profile"
-						? ``
-						: `/profile/${post.attributes.users_permissions_user.data.id}`
-				}
-				className={
-					from == "profile" ? "cursor-default" : "hover:text-blue-500"
-				}
-				onClick={(e) => {
-					if (from === "profile") {
-						e.preventDefault();
+			<header className="relative">
+				<DotActions
+					dotDropdown={dotDropdown}
+					setDotDropdown={setDotDropdown}
+					post={post}
+					loginDetails={loginDetails}
+				/>
+				<NavLink
+					to={
+						from === "profile"
+							? ``
+							: `/profile/${post.attributes.users_permissions_user.data.id}`
 					}
-				}}
-			>
-				<header className="grid grid-cols-[auto,1fr] gap-x-2">
-					<AvatarPhoto
-						src={
-							from === "profile"
-								? profileAvatar
-								: post.attributes.users_permissions_user.data.id ===
-								  loginDetails.user.id
-								? loginDetails.user.avatarUrl
-								: post.attributes.users_permissions_user.data.attributes
-										.avatarUrl
+					className={
+						(from == "profile"
+							? "cursor-default"
+							: "hover:text-blue-500") +
+						" grid grid-cols-[auto,1fr] gap-x-2 w-fit"
+					}
+					onClick={(e) => {
+						if (from === "profile") {
+							e.preventDefault();
 						}
-						className="row-[1/3] self-center"
-					/>
+					}}
+				>
+					{loginDetails ? (
+						<AvatarPhoto
+							src={
+								from === "profile"
+									? profileAvatar
+									: post.attributes.users_permissions_user.data.id ===
+									  loginDetails.user.id
+									? loginDetails.user.avatarUrl
+									: post.attributes.users_permissions_user.data.attributes
+											.avatarUrl
+							}
+							className="row-[1/3] self-center"
+						/>
+					) : (
+						<AvatarPhoto
+							src={
+								from === "profile"
+									? post.users_permissions_user.avatarUrl
+									: post.attributes.users_permissions_user.data.attributes
+											.avatarUrl
+							}
+							className="row-[1/3] self-center"
+						/>
+					)}
 					<span className="col-[2/3] font-medium text-sm">
 						{from === "profile"
 							? post.users_permissions_user.username
@@ -56,8 +102,8 @@ const PostDetails = (props) => {
 								: post.attributes.publishedAt
 						}
 					/>
-				</header>
-			</NavLink>
+				</NavLink>
+			</header>
 			<NavLink to={`/posts/${post.id}`}>
 				<div className="py-4 hover:text-blue-500">
 					<h2 className="font-bold block">

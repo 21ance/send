@@ -77,4 +77,18 @@ const fetchRequest = async (
 	}
 };
 
-export { convertDateTime, calculateTimePassed, fetchRequest };
+async function copyToClipboard(text) {
+	try {
+		await navigator.clipboard.writeText(text);
+		console.log(`copied to clipboard: ${text}`);
+	} catch (error) {
+		console.error(`unable to copy: , ${error}`);
+	}
+}
+
+export {
+	convertDateTime,
+	calculateTimePassed,
+	fetchRequest,
+	copyToClipboard,
+};
