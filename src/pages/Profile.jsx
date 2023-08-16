@@ -10,11 +10,11 @@ import BackButton from "../components/common/BackButton";
 import AvatarPickerModal from "../components/modal/AvatarPickerModal";
 
 const Profile = () => {
-	const { login, postFooter } = useContext(Context);
+	const { login, postFooter, modal } = useContext(Context);
 	const { loginDetails, setLoginDetails } = login;
 	const { postFooterData } = postFooter;
+	const { setModalConfig } = modal;
 	const { userID } = useParams();
-	const [modal, setModal] = useState(false);
 	const [profile, setProfile] = useState({
 		avatar: "",
 		previewAvatar: "",
@@ -26,6 +26,12 @@ const Profile = () => {
 
 	useEffect(() => {
 		document.title = "Send | Profile";
+		setModalConfig((prev) => ({
+			...prev,
+			children: <AvatarPickerModal handleClick={previewProfile} />,
+			handleCancel: cancelUpdateProfile,
+			handleSave: updateProfile,
+		}));
 	}, []);
 
 	useEffect(() => {
@@ -45,14 +51,14 @@ const Profile = () => {
 			...prev,
 			previewAvatar: "",
 		}));
-		setModal(false);
+		setModalConfig((prev) => ({ ...prev, active: !prev.active }));
 	}
 
-	function updateProfile() {
+	useEffect(() => {
+		if (profile.avatar === "" || !loginDetails) return;
 		const body = {
-			avatarUrl: profile.previewAvatar,
+			avatarUrl: profile.avatar,
 		};
-
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
 			`http://localhost:1337/api/users/${loginDetails.user.id}`,
@@ -60,16 +66,18 @@ const Profile = () => {
 			body,
 			token
 		);
-
-		setProfile((prev) => ({ ...prev, avatar: profile.previewAvatar }));
 		setLoginDetails((prev) => {
 			const newState = {
 				...prev,
-				user: { ...prev.user, avatarUrl: profile.previewAvatar },
+				user: { ...prev.user, avatarUrl: profile.avatar },
 			};
 			localStorage.setItem("login", JSON.stringify(newState));
 			return newState;
 		});
+	}, [profile.avatar]);
+
+	function updateProfile() {
+		setProfile((prev) => ({ ...prev, avatar: prev.previewAvatar }));
 		cancelUpdateProfile();
 	}
 
@@ -83,7 +91,9 @@ const Profile = () => {
 				{loginDetails && loginDetails.user.id === data.id && (
 					<button
 						className="absolute right-0 top-0 px-4 py-2 hover:text-blue-500"
-						onClick={() => setModal(true)}
+						onClick={() =>
+							setModalConfig((prev) => ({ ...prev, active: !prev.active }))
+						}
 					>
 						Update
 					</button>
@@ -119,14 +129,6 @@ const Profile = () => {
 					})
 					.reverse()}
 			</BoxContainer>
-			{modal && (
-				<AvatarPickerModal
-					setModal={setModal}
-					handleClick={previewProfile}
-					handleCancel={cancelUpdateProfile}
-					handleSave={updateProfile}
-				/>
-			)}
 		</>
 	);
 };

@@ -2,7 +2,16 @@ import { useEffect } from "react";
 import BoxContainer from "../common/BoxContainer";
 
 const Modal = (props) => {
-	const { children, width, handleSave, handleCancel, className } = props;
+	const {
+		children,
+		width,
+		handleSave,
+		handleCancel,
+		className,
+		submitText = "Save",
+		submitColor = "bg-[#787C7E] hover:bg-[#787C7E]/80",
+		cancelText = "Cancel",
+	} = props;
 
 	useEffect(() => {
 		function handleEsc(e) {
@@ -10,9 +19,7 @@ const Modal = (props) => {
 				handleCancel();
 			}
 		}
-
 		document.addEventListener("keydown", handleEsc);
-
 		return () => {
 			document.removeEventListener("keydown", handleEsc);
 		};
@@ -20,7 +27,7 @@ const Modal = (props) => {
 
 	return (
 		<section
-			className="fixed w-full h-full flex justify-center items-center bg-gray-500/50"
+			className="fixed w-full h-full flex justify-center items-center bg-gray-500/50 font-urbanist"
 			onClick={() => handleCancel()}
 		>
 			<BoxContainer
@@ -31,12 +38,13 @@ const Modal = (props) => {
 				{children}
 				<footer className="flex gap-2 text-white">
 					<ModalButton
-						text="Cancel"
+						text={cancelText}
 						handleClick={() => handleCancel()}
-						className="bg-[#787C7E] hover:bg-[#787C7E]/80"
+						className={submitColor}
 					/>
 					<ModalButton
-						text="Save"
+						type="submit"
+						text={submitText}
 						handleClick={() => handleSave()}
 						className="bg-blue-500 hover:bg-blue-500/80"
 					/>

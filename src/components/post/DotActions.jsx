@@ -38,7 +38,7 @@ const DotDropdown = (props) => {
 		<>
 			<BoxContainer
 				width="w-[100px]"
-				className="flex flex-col absolute items-start ml-[-80px]"
+				className="flex flex-col absolute items-start ml-[-80px] font-urbanist"
 			>
 				{myPost && (
 					<>

@@ -12,8 +12,9 @@ import AvatarPickerModal from "../components/modal/AvatarPickerModal";
 import { Context } from "../router/RouteManager";
 
 const Register = () => {
-	const { login } = useContext(Context);
+	const { login, modal } = useContext(Context);
 	const { loginDetails, setLoginDetails } = login;
+	const { setModalConfig } = modal;
 	const [registerForm, setRegisterForm] = useState({
 		username: "",
 		email: "",
@@ -22,11 +23,17 @@ const Register = () => {
 		avatar: "/svg/avatar/maleOne.svg",
 	});
 	const [registerError, setRegisterError] = useState(false);
-	const [modal, setModal] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		document.title = "Send | Register";
+		setModalConfig((prev) => ({
+			...prev,
+			children: <AvatarPickerModal handleClick={changePhoto} />,
+			handleCancel: closeModal,
+			handleSave: closeModal,
+			width: "max-w-[800px]",
+		}));
 	}, []);
 
 	useEffect(() => {
@@ -125,102 +132,101 @@ const Register = () => {
 		setRegisterForm((prev) => ({ ...prev, avatar: src }));
 	}
 
+	function closeModal() {
+		setModalConfig((prev) => ({ ...prev, active: false }));
+	}
+
 	return (
-		<>
-			<AccountElement heading="Welcome! Create your account now!">
-				<form className="flex flex-col gap-4">
-					<FormInput
-						type="text"
-						label="Username"
-						placeholder="Enter your username"
-						value={registerForm.username}
-						onChange={(e) => {
-							setRegisterForm((prev) => ({
+		<AccountElement heading="Welcome! Create your account now!">
+			<form className="flex flex-col gap-4">
+				<FormInput
+					type="text"
+					label="Username"
+					placeholder="Enter your username"
+					value={registerForm.username}
+					onChange={(e) => {
+						setRegisterForm((prev) => ({
+							...prev,
+							username: e.target.value,
+						}));
+					}}
+				/>
+				{registerError.username !== false && (
+					<FormError text={registerError.username} />
+				)}
+				<FormInput
+					type="text"
+					label="Email"
+					placeholder="Enter your email"
+					value={registerForm.email}
+					onChange={(e) => {
+						setRegisterForm((prev) => ({
+							...prev,
+							email: e.target.value,
+						}));
+					}}
+				/>
+				{registerError.email !== false && (
+					<FormError text={registerError.email} />
+				)}
+				<FormInput
+					type="password"
+					label="Password"
+					placeholder="Enter your password"
+					value={registerForm.password}
+					onChange={(e) => {
+						setRegisterForm((prev) => ({
+							...prev,
+							password: e.target.value,
+						}));
+					}}
+				/>
+				{registerError.password !== false && (
+					<FormError text={registerError.password} />
+				)}
+				<FormInput
+					type="password"
+					label="Confirm Password"
+					placeholder="Re-enter your password"
+					value={registerForm.confirmPassword}
+					onChange={(e) => {
+						setRegisterForm((prev) => ({
+							...prev,
+							confirmPassword: e.target.value,
+						}));
+					}}
+				/>
+				{registerError.confirmPassword !== false && (
+					<FormError text={registerError.confirmPassword} />
+				)}
+				<div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
+					<span className="col-[1/-1]">Profile:</span>
+					<AvatarPhoto className="w-20" src={registerForm.avatar} />
+					<button
+						type="button"
+						className="w-fit h-fit bg-[#787C7E] hover:bg-[#787C7E]/80 text-white px-2 py-1 self-end"
+						onClick={() =>
+							setModalConfig((prev) => ({
 								...prev,
-								username: e.target.value,
-							}));
-						}}
-					/>
-					{registerError.username !== false && (
-						<FormError text={registerError.username} />
-					)}
-					<FormInput
-						type="text"
-						label="Email"
-						placeholder="Enter your email"
-						value={registerForm.email}
-						onChange={(e) => {
-							setRegisterForm((prev) => ({
-								...prev,
-								email: e.target.value,
-							}));
-						}}
-					/>
-					{registerError.email !== false && (
-						<FormError text={registerError.email} />
-					)}
-					<FormInput
-						type="password"
-						label="Password"
-						placeholder="Enter your password"
-						value={registerForm.password}
-						onChange={(e) => {
-							setRegisterForm((prev) => ({
-								...prev,
-								password: e.target.value,
-							}));
-						}}
-					/>
-					{registerError.password !== false && (
-						<FormError text={registerError.password} />
-					)}
-					<FormInput
-						type="password"
-						label="Confirm Password"
-						placeholder="Re-enter your password"
-						value={registerForm.confirmPassword}
-						onChange={(e) => {
-							setRegisterForm((prev) => ({
-								...prev,
-								confirmPassword: e.target.value,
-							}));
-						}}
-					/>
-					{registerError.confirmPassword !== false && (
-						<FormError text={registerError.confirmPassword} />
-					)}
-					<div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
-						<span className="col-[1/-1]">Profile:</span>
-						<AvatarPhoto className="w-20" src={registerForm.avatar} />
-						<button
-							type="button"
-							className="w-fit h-fit bg-[#787C7E] hover:bg-[#787C7E]/80 text-white px-2 py-1 self-end"
-							onClick={() => setModal(true)}
-						>
-							Select
-						</button>
-						{/* <button className="w-fit h-fit bg-blue-500 text-white px-2 py-1 self-end">
+								active: true,
+							}))
+						}
+					>
+						Select
+					</button>
+					{/* <button className="w-fit h-fit bg-blue-500 text-white px-2 py-1 self-end">
 						Upload
 					</button> */}
-					</div>
-					<FormSubmit
-						onClick={(e) => {
-							e.preventDefault();
-							validateRegister();
-						}}
-						text="Register Account"
-					/>
-				</form>
-			</AccountElement>
-			{modal && (
-				<AvatarPickerModal
-					setModal={setModal}
-					handleClick={changePhoto}
-					handleSave={() => setModal(false)}
-					handleCancel={() => setModal(false)}
+				</div>
+				<FormSubmit
+					onClick={(e) => {
+						e.preventDefault();
+						validateRegister();
+					}}
+					text="Register Account"
 				/>
-			)}
-		</>
+			</form>
+		</AccountElement>
 	);
 };
 

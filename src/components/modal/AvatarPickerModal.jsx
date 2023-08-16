@@ -1,8 +1,7 @@
 import AvatarPhoto from "../common/AvatarPhoto";
-import Modal from "./Modal";
 
 const AvatarPickerModal = (props) => {
-	const { setModal, handleClick, handleSave, handleCancel } = props;
+	const { handleClick } = props;
 
 	const avatarList = [
 		"/svg/avatar/maleOne.svg",
@@ -14,22 +13,15 @@ const AvatarPickerModal = (props) => {
 	];
 
 	return (
-		<Modal
-			width="fit-content"
-			setModal={setModal}
-			handleSave={handleSave}
-			handleCancel={handleCancel}
-		>
-			<section className="flex gap-4 flex-wrap mb-4">
-				{avatarList.map((avatar, index) => {
-					return (
-						<button onClick={() => handleClick(avatar)} key={index}>
-							<AvatarPhoto src={avatar} className="w-28" />
-						</button>
-					);
-				})}
-			</section>
-		</Modal>
+		<section className="flex gap-4 flex-wrap mb-4 justify-center">
+			{avatarList.map((avatar, index) => {
+				return (
+					<button onClick={() => handleClick(avatar)} key={index}>
+						<AvatarPhoto src={avatar} className="w-20 md:w-28" />
+					</button>
+				);
+			})}
+		</section>
 	);
 };
 
