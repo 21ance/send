@@ -13,28 +13,6 @@ const PostDetails = (props) => {
 	const { loginDetails } = login;
 	const [dotDropdown, setDotDropdown] = useState(false);
 
-	useEffect(() => {
-		function closeDropdown(e) {
-			if (e.target.classList.contains("dropdown")) return;
-			setDotDropdown(false);
-		}
-		document.addEventListener("click", (e) => closeDropdown(e));
-		return () =>
-			document.removeEventListener("click", () => closeDropdown());
-	}, []);
-
-	useEffect(() => {
-		function handleEsc(e) {
-			if (e.keyCode === 27) {
-				setDotDropdown(false);
-			}
-		}
-		document.addEventListener("keydown", handleEsc);
-		return () => {
-			document.removeEventListener("keydown", handleEsc);
-		};
-	}, []);
-
 	return (
 		<BoxContainer
 			className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
@@ -45,8 +23,8 @@ const PostDetails = (props) => {
 					dotDropdown={dotDropdown}
 					setDotDropdown={setDotDropdown}
 					post={post}
-					loginDetails={loginDetails}
 					from={from}
+					className="right-[-10px] ml-4"
 				/>
 				<NavLink
 					to={

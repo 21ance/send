@@ -9,16 +9,17 @@ import AvatarPhoto from "../components/common/AvatarPhoto";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Context } from "../router/RouteManager";
 import BackButton from "../components/common/BackButton";
+import DotActions from "../components/post/DotActions";
 
 const PostPage = () => {
 	const { postFooter } = useContext(Context);
 	const { postFooterData } = postFooter;
-
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
 		`http://localhost:1337/api/posts/${postID}?populate=deep,3`
 	);
 	const [postContent, setPostContent] = useState(false);
+	const [dotDropdown, setDotDropdown] = useState(false);
 
 	useEffect(() => {
 		document.title = "Send | User Post";
@@ -42,7 +43,13 @@ const PostPage = () => {
 
 	return (
 		<>
-			<BoxContainer className="my-2">
+			<BoxContainer className="my-2 relative">
+				<DotActions
+					dotDropdown={dotDropdown}
+					setDotDropdown={setDotDropdown}
+					post={data.data}
+					className="right-[10px]"
+				/>
 				<BackButton />
 				<TimePassed
 					text={`Posted by ${postContent.OP.attributes.username}`}
