@@ -31,6 +31,7 @@ const Profile = () => {
 			children: <AvatarPickerModal handleClick={previewProfile} />,
 			handleCancel: cancelUpdateProfile,
 			handleSave: updateProfile,
+			width: "max-w-[800px]",
 		}));
 	}, []);
 
@@ -121,7 +122,7 @@ const Profile = () => {
 									reactions: post.reactions,
 									commentsLength: post.comments.length,
 								}}
-								width="w-max-full"
+								width="max-w-full"
 								from="profile"
 								profileAvatar={profile.avatar}
 							/>
