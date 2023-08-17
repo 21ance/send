@@ -27,7 +27,7 @@ const Modal = (props) => {
 
 	return (
 		<section
-			className="fixed w-full h-full flex justify-center items-center bg-gray-500/50 font-urbanist"
+			className="fixed w-full h-full flex justify-center items-center bg-gray-500/50 font-urbanist z-20"
 			onClick={() => handleCancel()}
 		>
 			<BoxContainer

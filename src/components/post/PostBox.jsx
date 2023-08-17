@@ -2,16 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { fetchRequest } from "../../helper/functions";
 import BoxContainer from "../common/BoxContainer";
 import PostButton from "./PostButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AvatarPhoto from "../common/AvatarPhoto";
 import { Context } from "../../router/RouteManager";
 
 const PostBox = (props) => {
-	const { userPosting, setUserPosting, setFeedData } = props;
-	const { login, postFooter } = useContext(Context);
-	const { setPostFooterData } = postFooter;
+	const { userPosting, setUserPosting } = props;
+	const { login, postFooter, feed } = useContext(Context);
 	const { loginDetails } = login;
-	const navigate = useNavigate();
+	const { setPostFooterData } = postFooter;
+	const { setFeedData } = feed;
 	const [error, setError] = useState(false);
 	const [postForm, setPostForm] = useState({
 		title: "",
@@ -54,42 +54,32 @@ const PostBox = (props) => {
 			"POST",
 			data,
 			token,
-			// appendData
-			refreshFeed()
+			appendData
 		);
 
-		// to check
-		// appending works but has issues on postfooter data for new posts
-		// likes and comments becomes 1 index inaccurate
-		// refresh page for, now after posting
+		function appendData(data) {
+			const newPost = data.data;
+			setFeedData((prev) => {
+				return [newPost, ...prev];
+			});
 
-		// function appendData(data) {
-		// 	const newPost = data.data;
-		// 	setFeedData((prev) => {
-		// 		return [newPost, ...prev];
-		// 	});
-
-		// 	setPostFooterData((prev) => {
-		// 		return [
-		// 			...prev,
-		// 			{
-		// 				commentsLength: 0,
-		// 				reactions: newPost.attributes.reactions.data,
-		// 				postID: newPost.id,
-		// 			},
-		// 		];
-		// 	});
-		// }
-
-		// setPostForm({
-		// 	title: "",
-		// 	content: "",
-		// });
-		// setUserPosting(false);
-
-		function refreshFeed() {
-			navigate(0);
+			setPostFooterData((prev) => {
+				return [
+					...prev,
+					{
+						commentsLength: 0,
+						reactions: newPost.attributes.reactions.data,
+						postID: newPost.id,
+					},
+				];
+			});
 		}
+
+		setPostForm({
+			title: "",
+			content: "",
+		});
+		setUserPosting(false);
 	}
 
 	return (

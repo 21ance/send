@@ -6,7 +6,7 @@ import PostDetails from "../components/post/PostDetails";
 const Feed = (props) => {
 	const { postFooter, feed } = useContext(Context);
 	const { postFooterData } = postFooter;
-	const { feedData, setFeedData } = feed;
+	const { feedData } = feed;
 	const { error, loading } = props;
 	const [userPosting, setUserPosting] = useState(false);
 
@@ -20,27 +20,20 @@ const Feed = (props) => {
 
 	return (
 		<main>
-			<PostBox
-				userPosting={userPosting}
-				setUserPosting={setUserPosting}
-				setFeedData={setFeedData}
-				feedData={feedData}
-			/>
+			<PostBox userPosting={userPosting} setUserPosting={setUserPosting} />
 			{feedData.map((post, index) => {
+				let footerData;
+				postFooterData.map((footData) => {
+					if (footData.postID === post.id) {
+						return (footerData = {
+							postID: footData.postID,
+							reactions: footData.reactions,
+							commentsLength: footData.commentsLength,
+						});
+					}
+				});
 				return (
-					<PostDetails
-						key={post.id}
-						post={post}
-						footerData={{
-							// postID: post.id,
-							// reactions: post.attributes.reactions.data,
-							// commentsLength: post.attributes.comments.data.length,
-							// to check
-							postID: postFooterData[index].postID,
-							reactions: postFooterData[index].reactions,
-							commentsLength: postFooterData[index].commentsLength,
-						}}
-					/>
+					<PostDetails key={post.id} post={post} footerData={footerData} />
 				);
 			})}
 		</main>

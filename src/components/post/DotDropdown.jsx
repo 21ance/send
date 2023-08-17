@@ -45,15 +45,24 @@ const DotDropdown = (props) => {
 			"DELETE",
 			"",
 			token,
-			refreshPage()
+			updateFeed
 		);
-		function refreshPage() {
-			navigate(0);
+
+		function updateFeed(data) {
+			if (postContent || from === "profile") return navigate(0);
+			setFeedData((prev) => {
+				const newState = prev.filter((feed) => {
+					return feed.id !== data.data.id;
+				});
+				return newState;
+			});
+			closeModal();
 		}
 	}
 
 	function updatePost() {
 		setModalConfig((prev) => {
+			if (!prev.form.title) return prev;
 			const body = {
 				data: {
 					title: prev.form.title,
