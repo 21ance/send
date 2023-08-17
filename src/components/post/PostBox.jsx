@@ -5,6 +5,7 @@ import PostButton from "./PostButton";
 import { Link } from "react-router-dom";
 import AvatarPhoto from "../common/AvatarPhoto";
 import { Context } from "../../router/RouteManager";
+import ResponsiveTextArea from "../common/ResponsiveTextArea";
 
 const PostBox = (props) => {
 	const { userPosting, setUserPosting } = props;
@@ -116,10 +117,8 @@ const PostBox = (props) => {
 								}));
 							}}
 						/>
-						<textarea
-							rows="4"
-							className="bg-[#F6F7F8] rounded px-4 py-2 w-full resize-none border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500"
-							placeholder="Text (optional)"
+						<ResponsiveTextArea
+							placeholder={"Text (optional)?"}
 							value={postForm.content}
 							onChange={(e) => {
 								setPostForm((prev) => ({
@@ -127,7 +126,7 @@ const PostBox = (props) => {
 									content: e.target.value,
 								}));
 							}}
-						></textarea>
+						/>
 						<footer className="flex flex-row-reverse gap-2 mt-2 justify-start">
 							<PostButton
 								type="submit"

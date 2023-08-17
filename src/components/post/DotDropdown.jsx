@@ -10,27 +10,35 @@ const DotDropdown = (props) => {
 	const { post, from, setPostContent, postContent } = props;
 	const { login, modal, feed } = useContext(Context);
 	const { loginDetails } = login;
-	const { modalConfig, setModalConfig } = modal;
+	const { setModalConfig } = modal;
 	const { setFeedData } = feed;
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (postContent && modalConfig.form) return;
+		setModalConfig((prev) => ({
+			...prev,
+			handleCancel: closeModal,
+			width: "max-w-fit",
+		}));
+		if (postContent) {
+			return setModalConfig((prev) => ({
+				...prev,
+				form: {
+					title: postContent.post.attributes.title,
+					content: postContent.post.attributes.content,
+				},
+			}));
+		}
 		if (from === "profile")
 			return setModalConfig((prev) => ({
 				...prev,
-				handleCancel: closeModal,
-				width: "max-w-fit",
 				form: {
 					title: post.title,
 					content: post.content,
 				},
 			}));
-
 		setModalConfig((prev) => ({
 			...prev,
-			handleCancel: closeModal,
-			width: "max-w-fit",
 			form: {
 				title: post.attributes.title,
 				content: post.attributes.content,

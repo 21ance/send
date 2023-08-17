@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../router/RouteManager";
+import ResponsiveTextArea from "../common/ResponsiveTextArea";
 
 const EditPostModal = () => {
 	const { modal } = useContext(Context);
@@ -11,7 +12,7 @@ const EditPostModal = () => {
 			<input
 				type="text"
 				placeholder="Title"
-				className="bg-[#F6F7F8] rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500"
+				className="rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500 bg-[#F6F7F8]"
 				value={modalConfig.form.title}
 				autoFocus={true}
 				onChange={(e) => {
@@ -28,10 +29,8 @@ const EditPostModal = () => {
 				}}
 			/>
 			<span>Content:</span>
-			<textarea
-				rows="4"
-				className="bg-[#F6F7F8] rounded px-4 py-2 w-full resize-none border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500"
-				placeholder="Text (optional)"
+			<ResponsiveTextArea
+				placeholder={"Text (optional)?"}
 				value={modalConfig.form.content}
 				onChange={(e) => {
 					setModalConfig((prev) => ({
@@ -42,7 +41,7 @@ const EditPostModal = () => {
 						},
 					}));
 				}}
-			></textarea>
+			/>
 		</div>
 	);
 };

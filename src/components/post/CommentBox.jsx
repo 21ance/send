@@ -4,6 +4,7 @@ import PostButton from "./PostButton";
 import { fetchRequest } from "../../helper/functions";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../../router/RouteManager";
+import ResponsiveTextArea from "../common/ResponsiveTextArea";
 
 const CommentBox = (props) => {
 	const { postContent, setPostContent } = props;
@@ -74,10 +75,8 @@ const CommentBox = (props) => {
 				<BoxContainer>
 					<small>Comment as {loginDetails.user.username}</small>
 					<form>
-						<textarea
-							rows="5"
-							className="resize-none p-2 border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500 w-full rounded"
-							placeholder="What are your thoughts?"
+						<ResponsiveTextArea
+							placeholder={"What are your thoughts?"}
 							value={commentForm}
 							onChange={(e) => setCommentForm(e.target.value)}
 						/>
