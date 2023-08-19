@@ -38,7 +38,7 @@ const Login = () => {
 		};
 
 		fetchRequest(
-			"http://localhost:1337/api/auth/local",
+			`${import.meta.env.VITE_BASE_URL}/api/auth/local`,
 			"POST",
 			body,
 			"",

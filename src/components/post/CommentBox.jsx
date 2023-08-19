@@ -31,7 +31,7 @@ const CommentBox = (props) => {
 		};
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			"http://localhost:1337/api/comments",
+			`${import.meta.env.VITE_BASE_URL}/api/comments`,
 			"POST",
 			data,
 			token,

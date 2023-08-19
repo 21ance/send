@@ -18,7 +18,9 @@ const RouteManager = () => {
 	// initial fetch for feed page
 	// lifted here not to re-render feed page on back
 	const { loading, error, data } = useFetch(
-		"http://localhost:1337/api/posts?sort[0]=id:DESC&populate=deep,3"
+		`${
+			import.meta.env.VITE_BASE_URL
+		}/api/posts?sort[0]=id:DESC&populate=deep,3`
 	);
 	const [feedData, setFeedData] = useState(null);
 	const [postFooterData, setPostFooterData] = useState(null);

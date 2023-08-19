@@ -47,7 +47,7 @@ const PostFooter = (props) => {
 		};
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			"http://localhost:1337/api/reactions?populate=deep,3",
+			`${import.meta.env.VITE_BASE_URL}/api/reactions?populate=deep,3`,
 			"POST",
 			data,
 			token,
@@ -92,7 +92,7 @@ const PostFooter = (props) => {
 
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			`http://localhost:1337/api/reactions/${myVote.id}`,
+			`${import.meta.env.VITE_BASE_URL}/api/reactions/${myVote.id}`,
 			"PUT",
 			data,
 			token,

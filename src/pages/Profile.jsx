@@ -21,7 +21,7 @@ const Profile = () => {
 	});
 
 	const { loading, error, data } = useFetch(
-		`http://localhost:1337/api/users/${userID}?populate=deep,4`
+		`${import.meta.env.VITE_BASE_URL}/api/users/${userID}?populate=deep,4`
 	);
 
 	useEffect(() => {
@@ -62,7 +62,7 @@ const Profile = () => {
 		};
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			`http://localhost:1337/api/users/${loginDetails.user.id}`,
+			`${import.meta.env.VITE_BASE_URL}/api/users/${loginDetails.user.id}`,
 			"PUT",
 			body,
 			token

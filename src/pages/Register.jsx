@@ -104,9 +104,8 @@ const Register = () => {
 			password: registerForm.password,
 			avatarUrl: registerForm.avatar,
 		};
-
 		fetchRequest(
-			"http://localhost:1337/api/auth/local/register",
+			`${import.meta.env.VITE_BASE_URL}/api/auth/local/register`,
 			"POST",
 			body,
 			"",

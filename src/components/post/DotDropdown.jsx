@@ -49,7 +49,7 @@ const DotDropdown = (props) => {
 	function deletePost() {
 		const token = `Bearer ${loginDetails.jwt}`;
 		fetchRequest(
-			`http://localhost:1337/api/posts/${post.id}`,
+			`${import.meta.env.VITE_BASE_URL}/api/posts/${post.id}`,
 			"DELETE",
 			"",
 			token,
@@ -79,7 +79,9 @@ const DotDropdown = (props) => {
 			};
 			const token = `Bearer ${loginDetails.jwt}`;
 			fetchRequest(
-				`http://localhost:1337/api/posts/${post.id}`,
+				`${import.meta.env.VITE_BASE_URL}/api/posts/${
+					post.id
+				}?populate=deep,3`,
 				"PUT",
 				body,
 				token,
@@ -188,7 +190,9 @@ const DotDropdown = (props) => {
 			<button
 				className="hover:text-blue-500"
 				onClick={() =>
-					copyToClipboard(`http://localhost:5173/#/posts/${post.id}`)
+					copyToClipboard(
+						`${import.meta.env.VITE_BASE_URL}/posts/${post.id}`
+					)
 				}
 			>
 				Copy link

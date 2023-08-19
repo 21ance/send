@@ -16,7 +16,7 @@ const PostPage = () => {
 	const { postFooterData } = postFooter;
 	const { postID } = useParams();
 	const { loading, error, data } = useFetch(
-		`http://localhost:1337/api/posts/${postID}?populate=deep,3`
+		`${import.meta.env.VITE_BASE_URL}/api/posts/${postID}?populate=deep,3`
 	);
 	const [postContent, setPostContent] = useState(false);
 	const [dotDropdown, setDotDropdown] = useState(false);
