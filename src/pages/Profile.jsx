@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BoxContainer from "../components/common/BoxContainer";
 import useFetch from "../hooks/useFetch";
 import { convertDateTime, fetchRequest } from "../helper/functions";
@@ -20,10 +20,10 @@ const Profile = () => {
 		avatar: "",
 		previewAvatar: "",
 	});
-
 	const { loading, error, data } = useFetch(
 		`${import.meta.env.VITE_BASE_URL}/api/users/${userID}?populate=deep,4`
 	);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		document.title = "Send | Profile";
@@ -84,7 +84,7 @@ const Profile = () => {
 	}
 
 	if (loading || !postFooterData) return <Loading />;
-	if (error) return <p>Error...</p>;
+	if (error) return navigate("*");
 
 	return (
 		<>

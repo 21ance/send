@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useContext, useEffect, useState } from "react";
 import TimePassed from "../components/common/TimePassed";
@@ -21,6 +21,7 @@ const PostPage = () => {
 	);
 	const [postContent, setPostContent] = useState(false);
 	const [dotDropdown, setDotDropdown] = useState(false);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		document.title = "Send | User Post";
@@ -28,7 +29,7 @@ const PostPage = () => {
 
 	useEffect(() => {
 		if (!data) return;
-		if (data.data === null) return setPostContent(false);
+		if (data.data === null) return navigate("*");
 
 		setPostContent({
 			post: data.data,
@@ -38,8 +39,8 @@ const PostPage = () => {
 		});
 	}, [data]);
 
-	if (loading || !postFooterData) return <Loading />;
-	if (error || !postContent) return <p>Error...</p>;
+	if (loading || !postFooterData || !postContent) return <Loading />;
+	if (error) return navigate("*");
 
 	return (
 		<>

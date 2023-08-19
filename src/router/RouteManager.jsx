@@ -8,6 +8,7 @@ import Profile from "../pages/Profile";
 import { useEffect, useState, createContext } from "react";
 import useFetch from "../hooks/useFetch";
 import Modal from "../components/modal/Modal";
+import Error404 from "../pages/Error404";
 
 export const Context = createContext();
 
@@ -62,6 +63,7 @@ const RouteManager = () => {
 					<Route path="/register" element={<Register />} />
 					<Route path="/posts/:postID" element={<PostPage />} />
 					<Route path="/profile/:userID" element={<Profile />} />
+					<Route path="*" element={<Error404 />} />
 				</Routes>
 				{modalConfig.active && (
 					<Modal
