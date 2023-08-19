@@ -10,6 +10,7 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Context } from "../router/RouteManager";
 import BackButton from "../components/common/BackButton";
 import DotActions from "../components/post/DotActions";
+import Loading from "../components/common/Loading";
 
 const PostPage = () => {
 	const { postFooter } = useContext(Context);
@@ -37,8 +38,7 @@ const PostPage = () => {
 		});
 	}, [data]);
 
-	// to add loading component
-	if (loading || !postFooterData) return <p>Loading...</p>;
+	if (loading || !postFooterData) return <Loading />;
 	if (error || !postContent) return <p>Error...</p>;
 
 	return (

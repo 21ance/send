@@ -8,6 +8,7 @@ import { Context } from "../router/RouteManager";
 import PostDetails from "../components/post/PostDetails";
 import BackButton from "../components/common/BackButton";
 import AvatarPickerModal from "../components/modal/AvatarPickerModal";
+import Loading from "../components/common/Loading";
 
 const Profile = () => {
 	const { login, postFooter, modal } = useContext(Context);
@@ -82,8 +83,7 @@ const Profile = () => {
 		cancelUpdateProfile();
 	}
 
-	// to add loading component
-	if (loading || !postFooterData) return <p>Loading...</p>;
+	if (loading || !postFooterData) return <Loading />;
 	if (error) return <p>Error...</p>;
 
 	return (

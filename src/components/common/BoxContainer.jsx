@@ -3,7 +3,7 @@ const BoxContainer = (props) => {
 		className = "",
 		children,
 		handleClick,
-		width = "md:w-[700px]",
+		width = " w-screen md:w-[700px]",
 	} = props;
 
 	return (
