@@ -191,7 +191,7 @@ const DotDropdown = (props) => {
 				className="hover:text-blue-500"
 				onClick={() =>
 					copyToClipboard(
-						`${import.meta.env.VITE_BASE_URL}/posts/${post.id}`
+						`https://21ance.github.io/send/#/posts/${post.id}`
 					)
 				}
 			>
