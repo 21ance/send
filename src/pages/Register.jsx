@@ -20,7 +20,7 @@ const Register = () => {
 		email: "",
 		password: "",
 		confirmPassword: "",
-		avatar: "/svg/avatar/maleOne.svg",
+		avatar: "./svg/avatar/maleOne.svg",
 	});
 	const [registerError, setRegisterError] = useState(false);
 	const navigate = useNavigate();

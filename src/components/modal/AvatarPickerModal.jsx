@@ -4,12 +4,12 @@ const AvatarPickerModal = (props) => {
 	const { handleClick } = props;
 
 	const avatarList = [
-		"/svg/avatar/maleOne.svg",
-		"/svg/avatar/maleTwo.svg",
-		"/svg/avatar/maleThree.svg",
-		"/svg/avatar/femaleOne.svg",
-		"/svg/avatar/femaleTwo.svg",
-		"/svg/avatar/femaleThree.svg",
+		"./svg/avatar/maleOne.svg",
+		"./svg/avatar/maleTwo.svg",
+		"./svg/avatar/maleThree.svg",
+		"./svg/avatar/femaleOne.svg",
+		"./svg/avatar/femaleTwo.svg",
+		"./svg/avatar/femaleThree.svg",
 	];
 
 	return (

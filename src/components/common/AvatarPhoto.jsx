@@ -1,5 +1,5 @@
 const AvatarPhoto = (props) => {
-	const { src = "/svg/avatar/default.svg", className } = props;
+	const { src = "./svg/avatar/default.svg", className } = props;
 
 	return (
 		<img
