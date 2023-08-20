@@ -157,6 +157,8 @@ const DotDropdown = (props) => {
 								active: true,
 								children: <EditPostModal />,
 								handleSave: updatePost,
+								submitText: "Save",
+								submitColor: "bg-blue-500 hover:bg-blue-500/80",
 							}))
 						}
 					>

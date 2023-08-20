@@ -32,19 +32,11 @@ const HeaderDropdown = () => {
 				text="Profile"
 				link={`/profile/${loginDetails.user.id}`}
 			/>
-			{darkMode ? (
-				<DropdownItem
-					icon={<MdDarkMode />}
-					text="Dark Mode"
-					handleClick={() => setDarkMode((prevMode) => !prevMode)}
-				/>
-			) : (
-				<DropdownItem
-					icon={<MdOutlineLightMode />}
-					text="Light Mode"
-					handleClick={() => setDarkMode((prevMode) => !prevMode)}
-				/>
-			)}
+			<DropdownItem
+				icon={darkMode ? <MdDarkMode /> : <MdOutlineLightMode />}
+				text={darkMode ? "Dark Mode" : "Light Mode"}
+				handleClick={() => setDarkMode((prevMode) => !prevMode)}
+			/>
 
 			<DropdownItem
 				icon={<AiOutlineLogout />}
@@ -56,7 +48,7 @@ const HeaderDropdown = () => {
 };
 
 const DropdownItem = (props) => {
-	const { text, icon, handleClick, link = "/" } = props;
+	const { text, icon, handleClick, link = "#" } = props;
 	return (
 		<Link
 			to={link}
