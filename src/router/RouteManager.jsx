@@ -35,7 +35,7 @@ const RouteManager = () => {
 
 	useEffect(() => {
 		localStorage.setItem("darkmode", JSON.stringify(darkMode));
-		darkMode == false
+		darkMode == true
 			? document.documentElement.classList.add("dark")
 			: document.documentElement.classList.remove("dark");
 	}, [darkMode]);
