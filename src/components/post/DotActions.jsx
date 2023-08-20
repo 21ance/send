@@ -41,7 +41,7 @@ const DotActions = (props) => {
 			onClick={(e) => e.preventDefault()}
 		>
 			<span
-				className="hover:text-blue-500 cursor-pointer"
+				className="hover:text-blue-500 cursor-pointer dark:text-slate-100"
 				onClick={() => setDotDropdown((prev) => !prev)}
 			>
 				<BsThreeDotsVertical className="dropdown" />

@@ -5,11 +5,14 @@ import {
 	AiOutlineLogout,
 	AiOutlineHome,
 } from "react-icons/ai";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { useContext } from "react";
+import { Context } from "../../router/RouteManager";
 
-const HeaderDropdown = (props) => {
-	const { loginDetails } = props;
-
+const HeaderDropdown = () => {
+	const { login, mode } = useContext(Context);
+	const { loginDetails } = login;
+	const { darkMode, setDarkMode } = mode;
 	const navigate = useNavigate();
 
 	function logOut() {
@@ -20,7 +23,7 @@ const HeaderDropdown = (props) => {
 
 	return (
 		<BoxContainer
-			className="absolute flex flex-col bottom-[-150px] right-[-0.5rem] whitespace-nowrap gap-2 z-10"
+			className="absolute flex flex-col bottom-[-150px] right-[-0.5rem] whitespace-nowrap gap-2 z-10 dark:bg-slate-900"
 			width="w-[150px]"
 		>
 			<DropdownItem icon={<AiOutlineHome />} text="Home" link={`/`} />
@@ -29,7 +32,20 @@ const HeaderDropdown = (props) => {
 				text="Profile"
 				link={`/profile/${loginDetails.user.id}`}
 			/>
-			<DropdownItem icon={<MdDarkMode />} text="Dark Mode" />
+			{darkMode ? (
+				<DropdownItem
+					icon={<MdDarkMode />}
+					text="Dark Mode"
+					handleClick={() => setDarkMode((prevMode) => !prevMode)}
+				/>
+			) : (
+				<DropdownItem
+					icon={<MdOutlineLightMode />}
+					text="Light Mode"
+					handleClick={() => setDarkMode((prevMode) => !prevMode)}
+				/>
+			)}
+
 			<DropdownItem
 				icon={<AiOutlineLogout />}
 				text="Logout"
@@ -44,7 +60,7 @@ const DropdownItem = (props) => {
 	return (
 		<Link
 			to={link}
-			className="flex items-center hover:text-blue-500"
+			className="flex items-center hover:text-blue-500 dark:hover:text-blue-500 dark:text-slate-200"
 			onClick={handleClick}
 		>
 			<span className="text-xl">{icon}</span>

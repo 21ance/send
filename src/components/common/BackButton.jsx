@@ -7,7 +7,7 @@ const BackButton = (props) => {
 
 	return (
 		<button
-			className={`${className} flex items-center gap-1 hover:text-blue-500 mb-2`}
+			className={`${className} flex items-center gap-1 hover:text-blue-500 mb-2 dark:text-slate-200 dark:hover:text-blue-500`}
 			onClick={() => navigate(-1)}
 		>
 			<span className="text-xl">

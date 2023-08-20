@@ -79,7 +79,9 @@ const PostPage = () => {
 				setPostContent={setPostContent}
 			/>
 			{postContent.comments.length === 0 ? (
-				<h2 className="text-center">no comments yet</h2>
+				<h2 className="text-center dark:text-slate-200">
+					no comments yet
+				</h2>
 			) : (
 				postContent.comments
 					.map((comment) => {

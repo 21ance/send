@@ -108,9 +108,12 @@ const Login = () => {
 						Unable to login, please enter a valid username and password
 					</span>
 				)}
-				<span className="text-center text-[#1E232C]">
+				<span className="text-center text-[#1E232C] dark:text-slate-200">
 					Don't have an account?{" "}
-					<Link to={"/register"} className="text-[#35C2C1]">
+					<Link
+						to={"/register"}
+						className="text-[#35C2C1] hover:text-blue-500 dark:hover:text-blue-500"
+					>
 						Register Now
 					</Link>
 				</span>

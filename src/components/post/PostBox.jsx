@@ -95,7 +95,7 @@ const PostBox = (props) => {
 					<input
 						type="text"
 						placeholder="Create Post"
-						className="bg-[#F6F7F8] rounded pl-4 w-full focus:outline-none focus:ring-0 focus:border-blue-500 hover:border-blue-500 border-[1px] duration-200"
+						className="bg-[#F6F7F8] rounded pl-4 w-full focus:outline-none focus:ring-0 focus:border-blue-500 hover:border-blue-500 border-[1px] duration-200 dark:bg-slate-800 dark:border-slate-700"
 						onClick={() => showPostForm()}
 						key={1}
 					/>
@@ -107,7 +107,7 @@ const PostBox = (props) => {
 						<input
 							type="text"
 							placeholder="Title"
-							className="bg-[#F6F7F8] rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500"
+							className="bg-[#F6F7F8] rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-700 dark:focus:border-blue-500"
 							value={postForm.title}
 							autoFocus={true}
 							onChange={(e) => {
@@ -118,7 +118,7 @@ const PostBox = (props) => {
 							}}
 						/>
 						<ResponsiveTextArea
-							placeholder={"Text (optional)?"}
+							placeholder={"Text (optional)"}
 							value={postForm.content}
 							onChange={(e) => {
 								setPostForm((prev) => ({
@@ -131,7 +131,7 @@ const PostBox = (props) => {
 							<PostButton
 								type="submit"
 								text="Post"
-								className="bg-blue-500 text-white hover:bg-blue-500/80"
+								className="bg-blue-500 text-white hover:bg-blue-500/80 dark:border-slate-700"
 								onClick={(e) => {
 									e.preventDefault();
 									createPost();
@@ -139,7 +139,7 @@ const PostBox = (props) => {
 							/>
 							<PostButton
 								text="Save Draft"
-								className="border-[#787C7E]"
+								className="border-[#787C7E] dark:border-slate-700"
 								onClick={() => setUserPosting(false)}
 							/>
 						</footer>

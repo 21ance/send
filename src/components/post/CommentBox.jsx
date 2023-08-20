@@ -84,7 +84,7 @@ const CommentBox = (props) => {
 							<PostButton
 								text="Comment"
 								type="submit"
-								className="bg-blue-500 text-white hover:bg-blue-500/80"
+								className="bg-blue-500 text-white hover:bg-blue-500/80 dark:border-slate-700"
 								onClick={(e) => {
 									e.preventDefault();
 									createComment();
@@ -92,7 +92,7 @@ const CommentBox = (props) => {
 							/>
 							<PostButton
 								text="Clear"
-								className="border-[#787C7E]"
+								className="border-[#787C7E] dark:border-slate-700"
 								onClick={() => setCommentForm("")}
 							/>
 						</footer>
@@ -101,7 +101,7 @@ const CommentBox = (props) => {
 			) : (
 				<BoxContainer>
 					<Link to={"/login"}>
-						<small className="hover:text-blue-500">
+						<small className="hover:text-blue-500 ">
 							Login your account to comment
 						</small>
 					</Link>

@@ -5,7 +5,7 @@ const TimePassed = (props) => {
 	const { currentTime, className, text = false } = props;
 
 	return (
-		<small className={className}>
+		<small className={`${className} dark:text-slate-400`}>
 			{text && `${text} `}
 			{calculateTimePassed(DateTime.fromISO(currentTime))}
 		</small>

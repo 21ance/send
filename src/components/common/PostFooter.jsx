@@ -3,6 +3,7 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { fetchRequest } from "../../helper/functions";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../router/RouteManager";
+import { MdOutlineModeComment } from "react-icons/md";
 
 const PostFooter = (props) => {
 	const { login, postFooter } = useContext(Context);
@@ -130,7 +131,7 @@ const PostFooter = (props) => {
 			onClick={(e) => e.preventDefault()}
 		>
 			<button
-				className="text-xl flex items-center gap-1"
+				className="text-xl flex items-center gap-1 dark:text-slate-100"
 				onClick={() => {
 					if (loginDetails === null) return navigate("/login");
 					if (myVote === null) {
@@ -148,11 +149,11 @@ const PostFooter = (props) => {
 				}}
 			>
 				{myVote === null || myVote.vote === false ? (
-					<span className="hover:text-blue-500">
+					<span className="hover:text-blue-500 dark:text-slate-100">
 						<AiOutlineLike />
 					</span>
 				) : (
-					<span className="text-blue-500">
+					<span className="text-blue-500 dark:text-slate-100">
 						<AiFillLike />
 					</span>
 				)}
@@ -168,8 +169,10 @@ const PostFooter = (props) => {
 						})}
 				</span>
 			</button>
-			<div className="flex items-center gap-1">
-				<img src="./svg/comment.svg" alt="downvote" width="16px" />
+			<div className="flex items-center gap-1 dark:text-slate-100">
+				<span className="text-lg">
+					<MdOutlineModeComment />
+				</span>
 				<span>{footerData.commentsLength}</span>
 			</div>
 		</footer>

@@ -12,7 +12,7 @@ const EditPostModal = () => {
 			<input
 				type="text"
 				placeholder="Title"
-				className="rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500 bg-[#F6F7F8]"
+				className="rounded px-4 py-2 w-full border-[1px] focus:outline-none focus:ring-0 focus:border-blue-500 bg-[#F6F7F8] dark:bg-slate-800 dark:border-slate-700 dark:focus:border-blue-500"
 				value={modalConfig.form.title}
 				autoFocus={true}
 				onChange={(e) => {
@@ -30,7 +30,7 @@ const EditPostModal = () => {
 			/>
 			<span>Content:</span>
 			<ResponsiveTextArea
-				placeholder={"Text (optional)?"}
+				placeholder={"Text (optional)"}
 				value={modalConfig.form.content}
 				onChange={(e) => {
 					setModalConfig((prev) => ({

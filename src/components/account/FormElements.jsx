@@ -7,7 +7,7 @@ const FormInput = (props) => {
 			<input
 				type={type}
 				placeholder={placeholder}
-				className="bg-[#F7F8F9] rounded-lg border-[1px] border-[#DADADA] py-2 px-4 placeholder:text-[#8391A1] focus:outline-[#1E232C] font-sans"
+				className="bg-[#F7F8F9] rounded-lg border-[1px] border-[#DADADA] py-2 px-4 placeholder:text-[#8391A1] focus:outline-[#1E232C] font-sans dark:text-slate-800"
 				value={value}
 				onChange={onChange}
 			/>

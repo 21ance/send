@@ -26,6 +26,19 @@ const RouteManager = () => {
 	const [feedData, setFeedData] = useState(null);
 	const [postFooterData, setPostFooterData] = useState(null);
 	const [modalConfig, setModalConfig] = useState({ active: false });
+	const [darkMode, setDarkMode] = useState(() => {
+		if (JSON.parse(localStorage.getItem("darkmode")) !== null) {
+			return JSON.parse(localStorage.getItem("darkmode"));
+		}
+		return false;
+	});
+
+	useEffect(() => {
+		localStorage.setItem("darkmode", JSON.stringify(darkMode));
+		darkMode == false
+			? document.documentElement.classList.add("dark")
+			: document.documentElement.classList.remove("dark");
+	}, [darkMode]);
 
 	useEffect(() => {
 		if (!data) return;
@@ -50,6 +63,7 @@ const RouteManager = () => {
 				postFooter: { postFooterData, setPostFooterData },
 				modal: { modalConfig, setModalConfig },
 				feed: { feedData, setFeedData },
+				mode: { darkMode, setDarkMode },
 			}}
 		>
 			<HashRouter>

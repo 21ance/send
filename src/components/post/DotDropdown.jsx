@@ -150,7 +150,7 @@ const DotDropdown = (props) => {
 			{myPost && (
 				<>
 					<button
-						className="hover:text-blue-500"
+						className="hover:text-blue-500 dark:hover:text-blue-500 dark:text-slate-100"
 						onClick={() =>
 							setModalConfig((prev) => ({
 								...prev,
@@ -163,7 +163,7 @@ const DotDropdown = (props) => {
 						Edit
 					</button>
 					<button
-						className="hover:text-blue-500"
+						className="hover:text-blue-500 dark:hover:text-blue-500 dark:text-slate-100"
 						onClick={() =>
 							setModalConfig((prev) => ({
 								...prev,
@@ -188,7 +188,7 @@ const DotDropdown = (props) => {
 				</>
 			)}
 			<button
-				className="hover:text-blue-500"
+				className="hover:text-blue-500 dark:hover:text-blue-500 dark:text-slate-100"
 				onClick={() =>
 					copyToClipboard(
 						`https://21ance.github.io/send/#/posts/${post.id}`

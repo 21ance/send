@@ -17,7 +17,7 @@ const PostDetails = (props) => {
 	return (
 		<NavLink to={`/posts/${post.id}`}>
 			<BoxContainer
-				className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200"
+				className="my-2 px-7 py-6 hover:border-[#787C7E] duration-200 dark:hover:border-slate-400"
 				width={width}
 			>
 				<header className="relative">
@@ -40,7 +40,7 @@ const PostDetails = (props) => {
 						className={
 							(from == "profile"
 								? ""
-								: "hover:underline-offset-2 hover:underline cursor-pointer") +
+								: "hover:underline-offset-2 hover:underline cursor-pointer dark:hover:decoration-slate-400") +
 							" grid grid-cols-[auto,1fr] gap-x-2 w-fit"
 						}
 					>
@@ -68,7 +68,7 @@ const PostDetails = (props) => {
 								className="row-[1/3] self-center"
 							/>
 						)}
-						<span className="col-[2/3] font-medium text-sm">
+						<span className="col-[2/3] font-medium text-sm dark:text-slate-200">
 							{from === "profile"
 								? post.users_permissions_user.username
 								: post.attributes.users_permissions_user.data.attributes
@@ -84,10 +84,10 @@ const PostDetails = (props) => {
 					</div>
 				</header>
 				<div className="py-4">
-					<h2 className="font-bold block">
+					<h2 className="font-bold block dark:text-slate-200">
 						{from === "profile" ? post.title : post.attributes.title}
 					</h2>
-					<p className="truncate max-w-full text-sm">
+					<p className="truncate max-w-full text-sm dark:text-slate-400">
 						{from === "profile" ? post.content : post.attributes.content}
 					</p>
 				</div>
